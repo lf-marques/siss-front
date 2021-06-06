@@ -1,38 +1,76 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
+import { Alert } from 'react-native'
 import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
+import CadastroUsuario from '../services/cadastroUsuario/Index'
 
 export default props => {
+    
+    const userAndPfPageDate = props.route.params ? props.route.params : {}
+    
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
-    const [cpf, setCpf] = useState(null)
+    
     const [checked, setChecked] = useState('NP');
-    const [checked2, setChecked2] = useState('Nao');
+    const [checked2, setChecked2] = useState('nao');
+    const [convenioMedico, setConvenioMedico] = useState(null);
 
-    const entrar = () => {
-        props.navigation.reset({
-            index: 0,
-            routes: [{ name: "Drawer" }]
+    const cadastrar = () => {
+        if(validar()) {
+            let allPageDate = {
+                user: userAndPfPageDate.user,
+                pf: userAndPfPageDate.pf,
+                cdClinica: {
+                    tipoSanguineo: checked,
+                    convenioMedico: convenioMedico,
+                }
+            }
+            CadastroUsuario.cadastrar(allPageDate).then((response => {
+            
+            }))
+        }
+        // props.navigation.reset({
+        //     index: 0,
+        //     routes: [{ name: "Drawer" }]
 
-        })
+        // })
     }
+
+    const validar = () => {
+        let valid = true
+        let message = 'Preencha o campo '
+
+        if(!checked) {
+            valid = false
+            message += '"Tipo Sanguíneo"'
+        }else if(checked2 == 'sim' && !convenioMedico) {
+            valid = false
+            message += '"Convênio Médico"'
+        }
+
+        if(!valid) {
+            Alert.alert(message)
+        }
+        return valid
+    }
+
     function mostrar(checked2) {
-        if (checked2 === 'Sim') {
+        if (checked2 === 'sim') {
             return (
                 <Input
                     style={styles.input, { paddingTop: 30 }}
                     autoCorrect={false}
                     placeholder='Digite o nome do Convenio'
-                    onChangeText={text => setdigBusca(text.replace(/[^a-zA-Z0-9]/, ''))}
+                    onChangeText={convenioMedico => setConvenioMedico(convenioMedico)}
                 />
             )
         }
-
     }
+
     return (
         <KeyboardAvoidingView style={styles.background}>
             <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
@@ -123,18 +161,18 @@ export default props => {
             <View style={{ padding: 15 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
-                        value="Sim"
-                        status={checked2 === 'Sim' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked2('Sim')}
+                        value="sim"
+                        status={checked2 === 'sim' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked2('sim')}
                     />
                     <Text style={{ fontSize: 15 }}>Sim</Text>
 
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
-                        value="Nao"
-                        status={checked2 === 'Nao' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked2('Nao')}
+                        value="nao"
+                        status={checked2 === 'nao' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked2('nao')}
                     />
                     <Text style={{ fontSize: 15 }}>Não</Text>
 
@@ -148,7 +186,7 @@ export default props => {
                 <TouchableOpacity
                     style={styles.btnSubmit}
                     onPress={() => {
-                        {entrar()}
+                        {cadastrar()}
                     }}
                 >
                     <Text style={styles.submitText}

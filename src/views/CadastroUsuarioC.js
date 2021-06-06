@@ -1,50 +1,60 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
+import { Alert } from 'react-native'
 import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
 
 export default props => {
+
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
-    const [cpf, setCpf] = useState(null)
-    const [checked, setChecked] = React.useState('A+');
+    
+    const [usuario, setUsuario] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [senha, setSenha] = useState(null)
+    const [senhaConfirmacao, setSenhaConfirmacao] = useState(null)
 
-    let cpfField = null
-
-    const validar = () => {
-        let error = false
-        setErrorCpf(null)
-
-        if (!cpfField.isValid()) {
-            setErrorCpf("Preencha seu CPF corretamente")
-            error = true
+    const proximaPagina = () => {
+        if(validar()) {
+            const userPageData = {
+                user: {
+                    usuario: usuario,
+                    email: email,
+                    senha: senha
+                }
+            }
+            props.navigation.navigate("PessoaFisica", userPageData)
         }
-        return !error
     }
 
-    const salvar = () => {
-        if (validar()) {
+    const validar = () => {
+        let valid = true
+        let message = 'preecha o campo '
 
-            let data = {
-                cpf: cpf
-            }
-
-            usuarioService.cadastrar(data)
-                .then((response) => {
-                    setLoading(false)
-                    const titulo = (response.data.status) ? "Sucesso" : "Erro"
-                    showDialog(titulo, response.data.mensagem, "SUCESSO")
-                    //Alert.alert(titulo, response.data.mensagem)          
-                })
-                .catch((error) => {
-                    setLoading(false)
-                    showDialog("Erro", "Houve um erro inesperado", "ERRO")
-                    //Alert.alert("Erro", "Houve um erro inesperado")
-                })
+        if(!usuario) {
+            valid = false
+            message += '"usuário"'
+        }else if(!email) {
+            valid = false
+            message += '"e-mail"'
+        }else if(!senha) {
+            valid = false
+            message += '"senha"'
+        }else if(!senhaConfirmacao) {
+            valid = false
+            message += '"confirmar senha"'
+        }else if(senha != senhaConfirmacao) {
+            valid = false
+            message = 'Senhas diferentes, por favor verifique'
         }
+
+        if(!valid) {
+            Alert.alert(message)
+        }
+        return valid
     }
 
     return (
@@ -60,41 +70,7 @@ export default props => {
                     autoCorrect={false}
                     placeholder='Usuário'
                     leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
-                    onChange={() => { }}
-                />
-
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Senha'
-                    leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
-                    secureTextEntry={true}
-                    onChange={() => { }}
-                />
-
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Confirmar Senha'
-                    leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
-                    secureTextEntry={true}
-                    onChange={() => { }}
-                />
-
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Nome'
-                    leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
-                    onChange={() => { }}
-                />
-
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Sobrenome'
-                    leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
-                    onChange={() => { }}
+                    onChangeText={usuario => setUsuario(usuario)}
                 />
 
                 <Input
@@ -103,35 +79,31 @@ export default props => {
                     placeholder='E-mail'
                     leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#B8B8B8' }}
                     keyboardType='email-address'
-                    onChange={() => { }}
+                    onChangeText={email => setEmail(email)}
                 />
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholder="CPF"
-                        type={'cpf'}
-                        value={cpf}
-                        onChangeText={value => {
-                            setCpf(value)
-                            setErrorCpf(null)
-                        }}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                        ref={(ref) => cpfField = ref}
-                    />
-                </View>
 
                 <Input
                     style={styles.input}
                     autoCorrect={false}
-                    placeholder='Data de Nascimento'
-                    leftIcon={{ type: 'font-awesome', name: 'calendar', color: '#B8B8B8' }}
-                    onChange={() => { }}
+                    placeholder='Senha'
+                    leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
+                    secureTextEntry={true}
+                    onChangeText={senha => setSenha(senha)}
                 />
+
+                <Input
+                    style={styles.input}
+                    autoCorrect={false}
+                    placeholder='Confirmar Senha'
+                    leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
+                    secureTextEntry={true}
+                    onChangeText={senhaConfirmacao => setSenhaConfirmacao(senhaConfirmacao)}
+                />
+                
                 <TouchableOpacity
                     style={styles.btnSubmit}
                     onPress={() => {
-                        props.navigation.navigate("Sangue")
+                        proximaPagina()
                     }}
                 >
                     <Text style={styles.submitText}

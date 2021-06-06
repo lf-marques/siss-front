@@ -13,7 +13,7 @@ export default props => {
 
     const entrar = () => {
         if(login !='' && senha !=''){
-
+            
             //Obtem o token de acesso de API com base nos dados de login
             OauthToken.getTokenByUsername(login, senha).then((response => {
                 if(response.success) {

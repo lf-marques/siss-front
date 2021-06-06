@@ -9,6 +9,7 @@ import Busca from '../views/Busca'
 import ListaBuscaPlaca from '../views/ListaBuscaPlaca'
 import ListaBuscaCPF from '../views/ListaBuscaCPF'
 import Sangue from '../views/Sangue'
+import PessoaFisica from '../views/PessoaFisica'
 
 const Stack= createStackNavigator()
 
@@ -17,6 +18,7 @@ export default props=> (
         <Stack.Screen name="welcome"  options={{title: 'Bem-Vindo'}} component={Welcome}/>
         <Stack.Screen name="login"  options={{title: 'Login'}} component={Login}/>
         <Stack.Screen name="CadUserC" options={{title: 'Cadastro'}} component={CadastroUsuarioC}/>
+        <Stack.Screen name="PessoaFisica" options={{title: 'PessoaFisica'}} component={PessoaFisica}/>
         <Stack.Screen name="Sangue" options={{title: 'Sangue'}} component={Sangue}/>
         <Stack.Screen name="Esqueci" options={{title: 'Esqueci Senha'}} component={Esqueci}/>
         <Stack.Screen name="Drawer"  options={{title: 'Inicial'}} component={Drawer}/>
