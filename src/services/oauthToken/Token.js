@@ -37,9 +37,13 @@ const saveTokenInStorage = async (tokenData) => {
 }
 
 const getResponseError = (error) => {
-    const msg =  error.response.data.erros.reduce((result, item) => {
-        return `${item}\n`
-    }, "");
+    if(error['response']['data']['erros']) {
+        const msg =  error.response.data.erros.reduce((result, item) => {
+            return `${item}\n`
+        }, "");
+    }else {
+        msg = 'erro interno'
+    }
     return {error: true, message: msg};
 }
 

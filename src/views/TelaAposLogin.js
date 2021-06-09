@@ -16,9 +16,9 @@ export default props => {
     function init() {
         if(!usrData) {
             PessoaFisicaAbstract.getByCurrentToken().then((response => {
-                if(response.success) {
+                if(response['success']) {
                     setUsrData(response.data)
-                }else if(response.error){
+                }else if(response['error']){
                     Alert.alert(response.message)
                 }
             }))

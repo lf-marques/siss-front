@@ -9,10 +9,10 @@ export default ({ route, navigation }) => {
     const salvar = () => {
         if(veiculo) {
             Veiculo.salvar(veiculo).then((response => {
-                if(response.success) {
+                if(response['success']) {
                     Alert.alert(response.message);
                     navigation.goBack();
-                }else if(response.error) {
+                }else if(response['error']) {
                     Alert.alert(response.message);
                 }else {
                     Alert.alert('Tente novamente mais tarde.');

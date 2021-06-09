@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'
 import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
+import CadastroUsuario from '../services/cadastroUsuario/Index'
+import PFAbstract from '../services/pessoaFisica/Abstract'
 
 export default props => {
 
@@ -14,28 +16,34 @@ export default props => {
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
 
     
-    const [nomeCompleto, setNomeCompleto] = useState(null)
-    const [cpf, setCpf] = useState(null)
-    const [rg, setRg] = useState(null)
-    const [dataNascimento, setDataNascimento] = useState(null)
-    const [telefone, setTelefone] = useState(null)
-    const [celular, setCelular] = useState(null)
+    const [nomeCompleto, setNomeCompleto] = useState('Luan Felipe Marques')
+    const [cpf, setCpf] = useState('484.922.800-34')
+    const [rg, setRg] = useState('41.105.316-4')
+    const [dataNascimento, setDataNascimento] = useState('05/04/2001')
+    const [telefone, setTelefone] = useState('(43) 3357-4186')
+    const [celular, setCelular] = useState('(43) 98477-6675')
     
 
     const proximaPagina = () => {
         if (validar()) {
-            let userAndPfPageDate = {
-                user: userPageData.user,
-                pf: {
-                    nome: nomeCompleto,
-                    cpf: cpf,
-                    rg: rg,
-                    dataNascimento: dataNascimento,
-                    telefone: telefone,
-                    celular
+            CadastroUsuario.checkExists('n', 'n', cpf, rg).then((response) => {
+                if(response['error']) {
+                    Alert.alert(response.message)
+                }else {
+                    let userAndPfPageDate = {
+                        user: userPageData.user,
+                        pf: {
+                            nome: nomeCompleto,
+                            cpf: cpf,
+                            rg: rg,
+                            dataNascimento: dataNascimento,
+                            telefone: telefone,
+                            celular
+                        }
+                    }
+                    props.navigation.navigate("Sangue", userAndPfPageDate)
                 }
-            }
-            props.navigation.navigate("Sangue", userAndPfPageDate)
+            })
         }
     }
 
@@ -60,6 +68,9 @@ export default props => {
         }else if(!celular) {
             valid = false
             message += '"celular"'
+        }else if(!PFAbstract.validarCpf(cpf)) {
+            valid = false
+            message += '"CPF com um valor válido"'
         }
 
         if(!valid) {
@@ -80,6 +91,7 @@ export default props => {
                     style={styles.input}
                     autoCorrect={false}
                     placeholder='Nome Completo'
+                    value={nomeCompleto}
                     leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                     onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
                 />

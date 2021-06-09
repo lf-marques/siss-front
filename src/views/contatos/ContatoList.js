@@ -12,9 +12,9 @@ export default props => {
     function init(refresh = false) {
         if(!usrData || refresh) {
             PFAbstract.getByCurrentToken().then((response => {
-                if(response.success) {
+                if(response['success']) {
                     setUsrData(response.data)
-                }else if(response.error){
+                }else if(response['error']){
                     Alert.alert(response.message)
                 }
             }))

@@ -26,10 +26,10 @@ export default ({ navigation }) => {
             };
             
             Alergia.salvarLista(requestData).then((response => {
-                if(response.success) {
+                if(response['success']) {
                     Alert.alert(response.message);
                     navigation.goBack();
-                }else if(response.error) {
+                }else if(response['error']) {
                     Alert.alert(response.message);
                 }else {
                     Alert.alert('Tente novamente mais tarde.');

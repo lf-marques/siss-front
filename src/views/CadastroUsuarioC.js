@@ -2,9 +2,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
 import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { Input } from 'react-native-elements'
+import { Input } from 'react-native-elements'   
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
+import CadastroUsuario from '../services/cadastroUsuario/Index'
 
 export default props => {
 
@@ -12,21 +13,27 @@ export default props => {
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
     
-    const [usuario, setUsuario] = useState(null)
-    const [email, setEmail] = useState(null)
-    const [senha, setSenha] = useState(null)
-    const [senhaConfirmacao, setSenhaConfirmacao] = useState(null)
+    const [usuario, setUsuario] = useState('teste123')
+    const [email, setEmail] = useState('teste123@email.com')
+    const [senha, setSenha] = useState('123456789')
+    const [senhaConfirmacao, setSenhaConfirmacao] = useState('123456789')
 
     const proximaPagina = () => {
         if(validar()) {
-            const userPageData = {
-                user: {
-                    usuario: usuario,
-                    email: email,
-                    senha: senha
+            CadastroUsuario.checkExists(usuario, email, 'n', 'n').then((response) => {
+                if(response['error']) {
+                    Alert.alert(response.message)
+                }else {
+                    const userPageData = {
+                        user: {
+                            usuario: usuario,
+                            email: email,
+                            senha: senha
+                        }
+                    }
+                    props.navigation.navigate('PessoaFisica', userPageData)
                 }
-            }
-            props.navigation.navigate("PessoaFisica", userPageData)
+            })
         }
     }
 
@@ -70,6 +77,7 @@ export default props => {
                     autoCorrect={false}
                     placeholder='Usuário'
                     leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
+                    value={usuario}
                     onChangeText={usuario => setUsuario(usuario)}
                 />
 
@@ -79,6 +87,7 @@ export default props => {
                     placeholder='E-mail'
                     leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#B8B8B8' }}
                     keyboardType='email-address'
+                    value={email}
                     onChangeText={email => setEmail(email)}
                 />
 
@@ -88,6 +97,7 @@ export default props => {
                     placeholder='Senha'
                     leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
                     secureTextEntry={true}
+                    value={senha}
                     onChangeText={senha => setSenha(senha)}
                 />
 
@@ -97,6 +107,7 @@ export default props => {
                     placeholder='Confirmar Senha'
                     leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
                     secureTextEntry={true}
+                    value={senhaConfirmacao}
                     onChangeText={senhaConfirmacao => setSenhaConfirmacao(senhaConfirmacao)}
                 />
                 

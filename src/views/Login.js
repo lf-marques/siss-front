@@ -16,7 +16,7 @@ export default props => {
             
             //Obtem o token de acesso de API com base nos dados de login
             OauthToken.getTokenByUsername(login, senha).then((response => {
-                if(response.success) {
+                if(response['success']) {
                     Alert.alert('Logado com sucesso')
                     if(response.tokenData.executante == 0){
                         props.navigation.reset({
@@ -29,7 +29,7 @@ export default props => {
                             routes: [{ name: "Busca" }]
                         })
                     }                    
-                }else if(response.error) {
+                }else if(response['error']) {
                     Alert.alert(response.message)
                 }else {
                     Alert.alert('Tente novamente mais tarde.')

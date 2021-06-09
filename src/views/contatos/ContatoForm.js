@@ -9,11 +9,11 @@ export default ({ route, navigation }) => {
     const salvar = () => {
         if(contato) {
             Contato.salvar(contato).then((response => {
-                if(response.success) {
+                if(response['success']) {
                     Alert.alert(response.message);
                     navigation.setParams({refrestList: true})
                     navigation.goBack();
-                }else if(response.error) {
+                }else if(response['error']) {
                     Alert.alert(response.message);
                 }else {
                     Alert.alert('Tente novamente mais tarde.');

@@ -15,9 +15,9 @@ export default props => {
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
     
-    const [checked, setChecked] = useState('NP');
-    const [checked2, setChecked2] = useState('nao');
-    const [convenioMedico, setConvenioMedico] = useState(null);
+    const [checked, setChecked] = useState('A+');
+    const [checked2, setChecked2] = useState('sim');
+    const [convenioMedico, setConvenioMedico] = useState('unimed');
 
     const cadastrar = () => {
         if(validar()) {
@@ -30,14 +30,14 @@ export default props => {
                 }
             }
             CadastroUsuario.cadastrar(allPageDate).then((response => {
-            
+                if(response['success']) {
+                    Alert.alert(response.message)
+                    props.navigation.navigate("login")
+                }else if(response['error']) {
+                    Alert.alert(response.message)
+                }
             }))
         }
-        // props.navigation.reset({
-        //     index: 0,
-        //     routes: [{ name: "Drawer" }]
-
-        // })
     }
 
     const validar = () => {
@@ -65,6 +65,7 @@ export default props => {
                     style={styles.input, { paddingTop: 30 }}
                     autoCorrect={false}
                     placeholder='Digite o nome do Convenio'
+                    value={convenioMedico}
                     onChangeText={convenioMedico => setConvenioMedico(convenioMedico)}
                 />
             )
