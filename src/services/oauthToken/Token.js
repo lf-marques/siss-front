@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Api from '../Api';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Api from '../Api'
+import Helper from '../Helper'
 
 const OauthToken = {
     async getTokenByUsername(username, senha){
@@ -7,7 +8,7 @@ const OauthToken = {
             const response = await Api.post("auth/username", {usuario: username, senha: senha })
             return getResponseToken(response)
         }catch(error) {
-            return getResponseError(error); 
+            return Helper.getResponseError(error); 
         } 
     },
     async getTokenByEmail(email, senha){
@@ -15,7 +16,7 @@ const OauthToken = {
             const response = await Api.post("auth/email", {email: email, senha: senha })
             return getResponseToken(response)
         }catch(error) {
-            return getResponseError(error); 
+            return Helper.getResponseError(error); 
         } 
     },
     async getTokenStorage() {
@@ -34,17 +35,6 @@ const saveTokenInStorage = async (tokenData) => {
     }catch(e) {
         console.log(e.message)
     }
-}
-
-const getResponseError = (error) => {
-    if(error['response']['data']['erros']) {
-        const msg =  error.response.data.erros.reduce((result, item) => {
-            return `${item}\n`
-        }, "");
-    }else {
-        msg = 'erro interno'
-    }
-    return {error: true, message: msg};
 }
 
 const getResponseToken = (response) => {

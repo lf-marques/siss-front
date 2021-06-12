@@ -35,26 +35,31 @@ export default props => {
                 text: 'Não',
             },
         ])
-}
+    }
     function getAlergiaItem({item:alergia}){
         return (
             <ListItem>
-            <ListItem.Content>
-                <ListItem.Title>{alergia.tipo}</ListItem.Title>
-                <ListItem.Subtitle>Atualizado em: {alergia.dataAtualizacao}</ListItem.Subtitle>
-            </ListItem.Content>
-            <Button
-                onPress={() => { confirmAlergiaDeletion(alergia) }}
-                type="clear"
-                icon={<Icon name="delete" size={25} color="red" />}
-            />
-        </ListItem>
+                <ListItem.Content>
+                    <ListItem.Title>{alergia.tipo}</ListItem.Title>
+                    <ListItem.Subtitle>Atualizado em: {alergia.dataAtualizacao}</ListItem.Subtitle>
+                </ListItem.Content>
+                <Button
+                    onPress={() => { confirmAlergiaDeletion(alergia) }}
+                    type="clear"
+                    icon={<Icon name="delete" size={25} color="red" />}
+                />
+            </ListItem>
         )
     }
 
     return (
         <View>
             {init()}
+            <Button
+                onPress={() => { init(true) }}
+                type="reload"
+                title="Atualizar"
+            />
             <FlatList
                 keyExtractor={alergia => alergia.id.toString()}
                 data={usrData && usrData.condicaoClinica ? usrData.condicaoClinica.alergias : null}

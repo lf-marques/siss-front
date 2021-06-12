@@ -1,6 +1,7 @@
-import Api from '../Api';
+import Api from '../Api'
 import OauthToken from '../oauthToken/Token'
-import PFAbstract from '../pessoaFisica/Abstract';
+import PFAbstract from '../pessoaFisica/Abstract'
+import Helper from '../Helper'
 
 const Veiculo = {
     async deletar(id){
@@ -25,6 +26,7 @@ const Veiculo = {
                         id: veiculo.id > 0  && veiculo.id != null ? veiculo.id : null,
                         modelo: veiculo.modelo,
                         marca: veiculo.marca,
+                        cor: veiculo.cor,
                         renavam: veiculo.renavam,
                         placa: veiculo.placa,
                         pessoaFisicaId: usrData.data.id
@@ -35,20 +37,9 @@ const Veiculo = {
 
             return {success: true, message: "Dados salvos com sucesso!"};
         }catch(error) {
-            return getResponseError(error)
+            return Helper.getResponseError(error)
         }
     }
-}
-
-const getResponseError = (error) => {
-    if(error['response']['data']['erros']) {
-        const msg =  error.response.data.erros.reduce((result, item) => {
-            return `${item}\n`
-        }, "");
-    }else {
-        msg = 'erro interno'
-    }
-    return {error: true, message: msg};
 }
 
 export default Veiculo;

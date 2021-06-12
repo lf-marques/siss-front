@@ -15,9 +15,9 @@ export default props => {
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
     
-    const [checked, setChecked] = useState('A+');
-    const [checked2, setChecked2] = useState('sim');
-    const [convenioMedico, setConvenioMedico] = useState('unimed');
+    const [checked, setChecked] = useState(null);
+    const [checked2, setChecked2] = useState(null);
+    const [convenioMedico, setConvenioMedico] = useState(null);
 
     const cadastrar = () => {
         if(validar()) {
@@ -26,7 +26,7 @@ export default props => {
                 pf: userAndPfPageDate.pf,
                 cdClinica: {
                     tipoSanguineo: checked,
-                    convenioMedico: convenioMedico,
+                    convenioMedico: checked2 == 'sim' ? convenioMedico : 'NP',
                 }
             }
             CadastroUsuario.cadastrar(allPageDate).then((response => {
@@ -47,7 +47,7 @@ export default props => {
         if(!checked) {
             valid = false
             message += '"Tipo Sanguíneo"'
-        }else if(checked2 == 'sim' && !convenioMedico) {
+        }else if((checked2 == 'sim' && !convenioMedico) || (!checked || !checked2)) {
             valid = false
             message += '"Convênio Médico"'
         }
@@ -146,9 +146,9 @@ export default props => {
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
-                        value="NP"
-                        status={checked === 'NP' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('NP')}
+                        value="NI"
+                        status={checked === 'NI' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked('NI')}
                     />
                     <Text style={{ fontSize: 15 }}>Não sei informar</Text>
                 </View>

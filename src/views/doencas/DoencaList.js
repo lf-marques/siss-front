@@ -60,6 +60,11 @@ export default props => {
     return (
         <View>
             {init()}
+            <Button
+                onPress={() => { init(true) }}
+                type="reload"
+                title="Atualizar"
+            />
             <FlatList
                 keyExtractor={doenca => doenca.id.toString()}
                 data={usrData && usrData.condicaoClinica ? usrData.condicaoClinica.doencas : null}

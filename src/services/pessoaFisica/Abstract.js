@@ -1,5 +1,6 @@
 import Api from '../Api'
 import OauthToken from '../oauthToken/Token'
+import Helper from '../Helper'
 
 const Abstract = {
     async getByCurrentToken(){
@@ -10,7 +11,24 @@ const Abstract = {
             );
             return getReponseSuccess(response)
         }catch(error) {
-            return getResponseError(error)
+            return Helper.getResponseError(error)
+        } 
+    },
+    async getBy(key, value){
+        try {
+            if(key == 'CPF' || key == 'RG') {
+                key = key.toLowerCase()
+                value = Helper.removeSpecialCharacters(value)
+            }else {
+                key = 'placaVeiculo'
+            }
+            const tokenData = await OauthToken.getTokenStorage();
+            const response = await Api.get(`api/pessoaFisica/${key}/${value}`,
+                {headers: {"Authorization" : tokenData.token}}
+            );
+            return getReponseSuccess(response)
+        }catch(error) {
+            return Helper.getResponseError(error)
         } 
     },
     async salvar(pf) {
@@ -35,7 +53,7 @@ const Abstract = {
 
             return {success: true, message: "Dados salvos com sucesso!"};
         }catch(error) {
-            return getResponseError(error)
+            return Helper.getResponseError(error)
         }
     },
     validarCpf(cpf) {
@@ -76,17 +94,6 @@ const Abstract = {
 
 const getReponseSuccess = (response) => {
     return {success: true, data: response.data.dados};
-}
-
-const getResponseError = (error) => {
-    if(error['response']['data']['erros']) {
-        const msg =  error.response.data.erros.reduce((result, item) => {
-            return `${item}\n`
-        }, "");
-    }else {
-        msg = 'erro interno'
-    }
-    return {error: true, message: msg};
 }
 
 export default Abstract;

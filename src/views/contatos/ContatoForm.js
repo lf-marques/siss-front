@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
+import { TextInputMask } from 'react-native-masked-text'
 import Contato from '../../services/contato/Index'
 
 export default ({ route, navigation }) => {
@@ -42,19 +43,39 @@ export default ({ route, navigation }) => {
                     value={contato.parentesco}
                 />
                 <Text>Telefone</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={telefone => setContato({ ...contato, telefone })}
-                    placeholder='Informe o telefone'
-                    value={contato.telefone}
-                />
+                <View style={styles.containerMask}>
+                    <TextInputMask
+                        placeholder="Telefone"
+                        type={'cel-phone'}
+                        options={{
+                            maskType: 'BRL',
+                            withDDD: true,
+                            dddMask: '(99) '
+                        }}
+                        value={contato.telefone}
+                        onChangeText={telefone => setContato({ ...contato, telefone})}
+                        keyboardType="number-pad"
+                        returnKeyType="done"
+                        style={styles.maskedInput}
+                    />
+                </View>
                 <Text>Celular</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={celular => setContato({ ...contato, celular })}
-                    placeholder='Informe o celular'
-                    value={contato.celular}
-                />
+                <View style={styles.containerMask}>
+                    <TextInputMask
+                        placeholder="Celular"
+                        type={'cel-phone'}
+                        options={{
+                            maskType: 'BRL',
+                            withDDD: true,
+                            dddMask: '(99) '
+                        }}
+                        value={contato.celular}
+                        onChangeText={celular => setContato({...contato, celular})}
+                        keyboardType="number-pad"
+                        returnKeyType="done"
+                        style={styles.maskedInput}
+                    />
+                </View>
 
                 <TouchableOpacity
                     style={styles.btnSubmit}
@@ -92,5 +113,19 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold'
     },
-
+    maskedInput: {
+        flexGrow: 1,
+        height: 40,
+        fontSize: 18,
+        borderBottomColor: "#999",
+        borderBottomWidth: 1,
+        borderStyle: "solid",
+        alignSelf: "flex-start"
+    },
+    containerMask: {
+        flexDirection: "row",
+        marginBottom: 5,
+        marginLeft: 10,
+        marginRight: 10
+    }
 })

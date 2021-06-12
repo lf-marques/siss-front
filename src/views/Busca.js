@@ -2,33 +2,21 @@ import React, { useState } from 'react'
 import { Alert } from 'react-native'
 import { View, Text, Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Character } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
+import { TextInputMask } from 'react-native-masked-text'
+import { RadioButton } from 'react-native-paper'
 
 
 export default props => {
-    const [digBusca, setdigBusca] = useState('12545687587')
+    const [searchBy, setSearchBy] = useState('CPF');
+    const [searchValue, setSearchValue] = useState('48492280034');
 
-    const entrar = () => {
-        if (digBusca != '') {
-            if (digBusca.length == 11 && !isNaN(parseFloat(digBusca)) && isFinite(digBusca)) {
-                props.navigation.navigate
-                ("ListaBuscaCPF")
-            } else if (digBusca.length == 7 &&
-                isNaN(digBusca.charAt(0)) &&
-                isNaN(digBusca.charAt(1)) &&
-                isNaN(digBusca.charAt(2)) &&
-                !isNaN(parseFloat(digBusca.charAt(3))) &&
-                !isNaN(parseFloat(digBusca.charAt(5))) &&
-                !isNaN(parseFloat(digBusca.charAt(6)))) {
-                props.navigation.navigate("ListaBuscaPlaca")
-            } else {
-                Alert.alert('Valor digitado inválido!')
-            }
-
-        } else {
+    const buscar = () => {
+        if (searchValue && searchValue != '') {
+            let request = {searchParams: {key: searchBy, value: searchValue}}
+            props.navigation.navigate("ListaBuscaDocumento", request)
+        }else {
             Alert.alert('Preencha o campo')
         }
-
-
     }
 
     return (
@@ -55,16 +43,49 @@ export default props => {
                 </Text>
             </View >
             <View style={styles.views}>
-                <Input
-                    style={styles.input, { paddingTop: 30 }}
-                    autoCorrect={false}
-                    placeholder='Digite CPF ou Placa do veículo'
-                    onChangeText={text => setdigBusca(text.replace(/[^a-zA-Z0-9]/, ''))}
-                    value={digBusca}
-                />
+                
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <RadioButton
+                        value="CPF"
+                        status={ searchBy === 'CPF' ? 'checked' : 'unchecked' }
+                        onPress={() => setSearchBy('CPF')}
+                    />
+                     <Text style={{ fontSize: 15 }}>CPF</Text>
+                    <RadioButton
+                        value="RG"
+                        status={ searchBy === 'RG' ? 'checked' : 'unchecked' }
+                        onPress={() => setSearchBy('RG')}
+                    />
+                     <Text style={{ fontSize: 15 }}>RG</Text>
+                    <RadioButton
+                        value="Placa"
+                        status={ searchBy === 'Placa' ? 'checked' : 'unchecked' }
+                        onPress={() => setSearchBy('Placa')}
+                    />
+                     <Text style={{ fontSize: 15 }}>Placa</Text>
+                </View>
+
+                <View style={styles.containerMask}>
+                    <TextInputMask
+                        placeholder={searchBy}
+                        type={'custom'}
+                        options={{
+                            mask: 
+                            searchBy == 'CPF' ? '999.999.999-99' : 
+                            (searchBy == 'RG' ? '99.999.999-9' : 
+                            (searchBy == 'Placa' ? '********' : null))
+                        }}
+                        value={searchValue}
+                        onChangeText={searchValue => setSearchValue(searchValue)}
+                        keyboardType="number-pad"
+                        returnKeyType="done"
+                        style={styles.maskedInput}
+                    />
+                </View>
+
                 <TouchableOpacity
                     style={styles.btnSubmit}
-                    onPress={() => { entrar({ digBusca }) }}
+                    onPress={() => { buscar() }}
                 >
                     <Text style={styles.submitText}
                     >Buscar</Text>
@@ -107,6 +128,21 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold'
     },
+    maskedInput: {
+        flexGrow: 1,
+        height: 40,
+        fontSize: 18,
+        borderBottomColor: "#999",
+        borderBottomWidth: 1,
+        borderStyle: "solid",
+        alignSelf: "flex-start"
+    },
+    containerMask: {
+        flexDirection: "row",
+        marginBottom: 5,
+        marginLeft: 10,
+        marginRight: 10
+    }
 })
 
 

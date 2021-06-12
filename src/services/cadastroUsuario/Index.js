@@ -1,7 +1,8 @@
-import Api from '../Api';
+import Api from '../Api'
 import OauthToken from '../oauthToken/Token'
-import PFAbstract from '../pessoaFisica/Abstract';
-import CondicaoClinica from '../condicaoClinica/Index';
+import PFAbstract from '../pessoaFisica/Abstract'
+import CondicaoClinica from '../condicaoClinica/Index'
+import Helper from '../Helper'
 
 const CadastroUsuario = {
     async cadastrar(data) {
@@ -38,11 +39,38 @@ const CadastroUsuario = {
             }
 
         }catch(error) {
-            return getResponseError(error)
+            return Helper.getResponseError(error)
+        }
+    },
+    async enviarCodigoRecuperacao(email) {
+        try {
+            const response = await Api.post('api/usuario/enviarCodigo',{email: email})
+            return {success: true, data: response.data.dados}
+        }catch(error) {
+            return Helper.getResponseError(error)
+        }
+    },
+    async redefinirSenha(data) {
+        try {
+            const response = await Api.post('api/usuario/redefinirSenha',
+                {idUsuario: data.idUsuario, 
+                    codigo: data.codigo, 
+                    novaSenha: data.senha
+                })
+                return {success: true, data: response.data.dados}
+            }catch(error) {
+            return Helper.getResponseError(error)
         }
     },
     async checkExists(username, email, cpf, rg) {
         try {
+            if(cpf != 'n') {
+                cpf = Helper.removeSpecialCharacters(cpf)
+            }
+            if(rg != 'n') {
+                rg = Helper.removeSpecialCharacters(rg)
+            }
+
             const response = await Api.post('api/pessoaFisica/checkExistente',
             {
                 username: username, 
@@ -50,8 +78,8 @@ const CadastroUsuario = {
                 cpf: cpf,
                 rg: rg
 
-            })   
-            
+            })
+
             if(response.data == 'ok') {
                 return {success: true};
             }else {
@@ -68,29 +96,14 @@ const CadastroUsuario = {
 }
 
 const prepareData = (data) => {
-    data.pf.cpf = removeSpecialCharacters(data.pf.cpf)
-    data.pf.rg = removeSpecialCharacters(data.pf.rg)
+    data.pf.cpf = Helper.removeSpecialCharacters(data.pf.cpf)
+    data.pf.rg = Helper.removeSpecialCharacters(data.pf.rg)
 
     let darr = data.pf.dataNascimento.split('/');
     let ISOFormat = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
     data.pf.dataNascimento = ISOFormat.toISOString().split('T')[0]
 
     return data
-}
-
-const removeSpecialCharacters = (str) => {
-    return str.replace(/[^\w\s]/gi, "")
-}
-
-const getResponseError = (error) => {
-    if(error['response']['data']['erros']) {
-        const msg =  error.response.data.erros.reduce((result, item) => {
-            return `${item}\n`
-        }, "");
-    }else {
-        msg = 'erro interno'
-    }
-    return {error: true, message: msg};
 }
 
 export default CadastroUsuario;

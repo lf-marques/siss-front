@@ -1,57 +1,47 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
+import { Alert } from 'react-native'
 import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
-import { TextInputMask } from 'react-native-masked-text'
+import CadastroUsuario from '../services/cadastroUsuario/Index'
 
 export default props => {
-    const [senha, setSenha] = useState(null)
-    const [csenha, setCSenha] = useState(null)
-    const [codigo, setCodigo] = useState(null)
+    const [email, setEmail] = useState(null)
 
-
+    const enviarCodigo = () => {
+        CadastroUsuario.enviarCodigoRecuperacao(email).then((response) => {
+            if(response['success']) {
+                Alert.alert('Código enviado com sucesso, prossiga para próxima tela.')
+                props.navigation.navigate("SenhaRecuperar", {info: response.data})
+            }else if(response['error']) {
+                Alert.alert(response.message)
+            }
+        })
+    }
 
     return (
         <KeyboardAvoidingView style={styles.background}>
-            <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
-                    Preencha os campos!
+            <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 90, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 15, color: '#FFF', fontWeight: 'bold', }}>
+                    Informe o e-mail da conta para enviarmos o código.
                 </Text>
             </View>
             <Input
                 style={styles.input}
                 autoCorrect={false}
-                placeholder='Código de Verificação'
+                placeholder='E-mail'
                 leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
-                onChange={() => { }}
-            />
-
-            <Input
-                style={styles.input}
-                autoCorrect={false}
-                placeholder='Senha'
-                leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
-                secureTextEntry={true}
-                onChange={() => { }}
-            />
-
-            <Input
-                style={styles.input}
-                autoCorrect={false}
-                placeholder='Confirmar Senha'
-                leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
-                secureTextEntry={true}
-                onChange={() => { }}
+                onChangeText={email => setEmail(email)}
             />
 
             <TouchableOpacity
                 style={styles.btnSubmit}
                 onPress={() => {
-                    props.navigation.navigate("login")
+                    enviarCodigo()
                 }}
             >
                 <Text style={styles.submitText}
-                >Salvar</Text>
+                >Enviar Código</Text>
             </TouchableOpacity>
 
         </KeyboardAvoidingView>

@@ -13,8 +13,8 @@ export default props => {
 
     const [usrData, setUsrData] = useState(null)
 
-    function init() {
-        if(!usrData) {
+    function init(refresh = false) {
+        if(!usrData || refresh) {
             PessoaFisicaAbstract.getByCurrentToken().then((response => {
                 if(response['success']) {
                     setUsrData(response.data)
@@ -147,6 +147,11 @@ export default props => {
             <View style={{ flex: .5, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 30, color: '#AD0E3D', fontWeight: 'bold' }}>Bem vindo ao S.I.S</Text>
             </View>
+            <Button
+                onPress={() => { init(true) }}
+                type="reload"
+                title="Atualizar"
+            />
             <View style={{ backgroundColor: '#FFF' }}>
                 {init()}
                 {CadVeiculo()}

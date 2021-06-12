@@ -70,7 +70,7 @@ export default props => {
             message += '"celular"'
         }else if(!PFAbstract.validarCpf(cpf)) {
             valid = false
-            message += '"CPF com um valor válido"'
+            message += '"CPF" com um valor válido'
         }
 
         if(!valid) {
@@ -221,5 +221,5 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginLeft: 10,
         marginRight: 10
-    },
+    }
 })

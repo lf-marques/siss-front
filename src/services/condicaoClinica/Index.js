@@ -1,6 +1,7 @@
-import Api from '../Api';
+import Api from '../Api'
 import OauthToken from '../oauthToken/Token'
-import PFAbstract from '../pessoaFisica/Abstract';
+import PFAbstract from '../pessoaFisica/Abstract'
+import Helper from '../Helper'
 
 const CondicaoClinica = {
     async salvar(condicaoClinica) {
@@ -22,23 +23,9 @@ const CondicaoClinica = {
 
             return {success: true, message: "Dados salvos com sucesso!"};
         }catch(error) {
-            console.log('condicao clinciaaaa')
-            console.log(error)
-            console.log('condicao clinciaaaa')
-            // return getResponseError(error)
+            return Helper.getResponseError(error)
         }
     }
-}
-
-const getResponseError = (error) => {
-    if(error['response']['data']['erros']) {
-        const msg =  error.response.data.erros.reduce((result, item) => {
-            return `${item}\n`
-        }, "");
-    }else {
-        msg = 'erro interno'
-    }
-    return {error: true, message: msg};
 }
 
 export default CondicaoClinica;

@@ -63,6 +63,11 @@ export default props => {
     return (
         <View>
             {init()}
+            <Button
+                onPress={() => { init(true) }}
+                type="reload"
+                title="Atualizar"
+            />
             <FlatList
                 keyExtractor={veiculo => veiculo.id.toString()}
                 data={usrData && usrData.veiculos ? usrData.veiculos : null}
