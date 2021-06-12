@@ -15,10 +15,10 @@ export default props => {
         if(!data) {
             PFAbstract.getBy(searchParams.key, searchParams.value).then((response) => {
                 if(response['success']) {
-                    setData(response.data)
                     if(!response.data['id']) {
                         setIsMulti(true)
                     }
+                    setData(response.data)
                 }
             })
         }
@@ -62,87 +62,96 @@ export default props => {
 
     function makeBody(info) {
         return (
-            <View style={styles.infoContainer}>
-                <View style={styles.separatorContainer}>
-                    <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
-                </View>
-                <Text>Nome: {info.nome}</Text>
-                <Text>CPF: {info.cpf}</Text>
-                <Text>RG: {info.rg}</Text>
-                <Text>Tel.: {info.telefone}</Text>
-                <Text>Cel.: {info.celular}</Text>
-                <Text>Data Nasc.: {info.dataNascimento}</Text>
-                <Text>
-                    Convênio Médico: 
-                    {info.condicaoClinica.convenioMedico == 'NP' ? 
-                    'Não possuí' : info.condicaoClinica.convenioMedico}
-                </Text>
-                <Text>Tipo Sanguineo: {info.condicaoClinica.tipoSanguineo}</Text>
-                <Collapse>
-                    <CollapseHeader>
+            <Collapse>
+                <CollapseHeader>
+                    <View style={{backgroundColor: '#0c1274', padding:3 }}>
+                        <Text style={{fontSize: 20, color: '#FFF', fontWeight: 'bold'}}>{info.nome}</Text>
+                    </View>
+                </CollapseHeader>
+                <CollapseBody>
+                    <View>
                         <View style={styles.separatorContainer}>
-                            <Text style={styles.separatorText}>VEÍCULOS</Text>
+                            <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
                         </View>
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <FlatList
-                            horizontal={true}
-                            keyExtractor={veiculo => veiculo.id.toString()}
-                            data={info && info.veiculos ? info.veiculos : null}
-                            renderItem={getVeiculoItem}
-                            ItemSeparatorComponent={() => <View style={styles.separator} />}
-                        />  
-                    </CollapseBody>
-                </Collapse>
-                <Collapse>
-                    <CollapseHeader>
-                        <View style={styles.separatorContainer}>
-                            <Text style={styles.separatorText}>CONTATOS</Text>
-                        </View>
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <FlatList
-                            horizontal={true}
-                            keyExtractor={contato => contato.id.toString()}
-                            data={info && info.contatos ? info.contatos : null}
-                            renderItem={getContatoItem}
-                            ItemSeparatorComponent={() => <View style={styles.separator} />}
-                        />  
-                    </CollapseBody>
-                </Collapse>
-                <Collapse>
-                    <CollapseHeader>
-                        <View style={styles.separatorContainer}>
-                            <Text style={styles.separatorText}>ALERGIAS</Text>
-                        </View>
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <FlatList
-                            horizontal={true}
-                            keyExtractor={alergia => alergia.id.toString()}
-                            data={info && info.condicaoClinica ? info.condicaoClinica.alergias : null}
-                            renderItem={getCondicaoClinicaItem}
-                            ItemSeparatorComponent={() => <View style={styles.separator} />}
-                        />
-                    </CollapseBody>
-                </Collapse>
-                <Collapse>
-                    <CollapseHeader>
-                        <View style={styles.separatorContainer}>
-                            <Text style={styles.separatorText}>DOENCAS</Text>
-                        </View>
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <FlatList
-                            horizontal={true}
-                            keyExtractor={doenca => doenca.id.toString()}
-                            data={info && info.condicaoClinica ? info.condicaoClinica.doencas : null}
-                            renderItem={getCondicaoClinicaItem}
-                            ItemSeparatorComponent={() => <View style={styles.separator} />}
-                        />
-                    </CollapseBody>
-                </Collapse>
-            </View>
+                        <Text>Nome: {info.nome}</Text>
+                        <Text>CPF: {info.cpf}</Text>
+                        <Text>RG: {info.rg}</Text>
+                        <Text>Tel.: {info.telefone}</Text>
+                        <Text>Cel.: {info.celular}</Text>
+                        <Text>Data Nasc.: {info.dataNascimento}</Text>
+                        <Text>
+                            Convênio Médico: 
+                            {info.condicaoClinica.convenioMedico == 'NP' ? 
+                            'Não possuí' : info.condicaoClinica.convenioMedico}
+                        </Text>
+                        <Text>Tipo Sanguineo: {info.condicaoClinica.tipoSanguineo}</Text>
+                        <Collapse>
+                            <CollapseHeader>
+                                <View style={styles.separatorContainer}>
+                                    <Text style={styles.separatorText}>VEÍCULOS</Text>
+                                </View>
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <FlatList
+                                    horizontal={true}
+                                    keyExtractor={veiculo => veiculo.id.toString()}
+                                    data={info && info.veiculos ? info.veiculos : null}
+                                    renderItem={getVeiculoItem}
+                                    ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                />  
+                            </CollapseBody>
+                        </Collapse>
+                        <Collapse>
+                            <CollapseHeader>
+                                <View style={styles.separatorContainer}>
+                                    <Text style={styles.separatorText}>CONTATOS</Text>
+                                </View>
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <FlatList
+                                    horizontal={true}
+                                    keyExtractor={contato => contato.id.toString()}
+                                    data={info && info.contatos ? info.contatos : null}
+                                    renderItem={getContatoItem}
+                                    ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                />  
+                            </CollapseBody>
+                        </Collapse>
+                        <Collapse>
+                            <CollapseHeader>
+                                <View style={styles.separatorContainer}>
+                                    <Text style={styles.separatorText}>ALERGIAS</Text>
+                                </View>
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <FlatList
+                                    horizontal={true}
+                                    keyExtractor={alergia => alergia.id.toString()}
+                                    data={info && info.condicaoClinica ? info.condicaoClinica.alergias : null}
+                                    renderItem={getCondicaoClinicaItem}
+                                    ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                />
+                            </CollapseBody>
+                        </Collapse>
+                        <Collapse>
+                            <CollapseHeader>
+                                <View style={styles.separatorContainer}>
+                                    <Text style={styles.separatorText}>DOENCAS</Text>
+                                </View>
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <FlatList
+                                    horizontal={true}
+                                    keyExtractor={doenca => doenca.id.toString()}
+                                    data={info && info.condicaoClinica ? info.condicaoClinica.doencas : null}
+                                    renderItem={getCondicaoClinicaItem}
+                                    ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                />
+                            </CollapseBody>
+                        </Collapse>
+                    </View>
+                </CollapseBody>
+            </Collapse>
         )
     }
 
@@ -162,12 +171,12 @@ export default props => {
                     />
                 )
             }else {
-                // return makeBody(data)
+                return makeBody(data)
             }
         }else {
             return (
-                <Text style={{ fontSize: 30, color: 'black', fontWeight: 'bold' }}>
-                    ENCONTROU PORRA NENHUMA
+                <Text style={{ fontSize: 15, color: 'black', fontWeight: 'bold' }}>
+                    Nenhuma informação encontrada :(
                 </Text>
             )
         }
@@ -188,6 +197,13 @@ export default props => {
             </View>
             <View>
                 {getData()}  
+            </View>
+            <View>
+                <Button
+                    onPress={() => { props.navigation.goBack() }}
+                    type="back"
+                    title="Clique para realizar uma nova busca"
+                />
             </View>
         </KeyboardAvoidingView >
     )
@@ -210,11 +226,8 @@ const styles = StyleSheet.create({
         width: '100%',
         padding:20,
     },
-    infoContainer: {
-        marginBottom: 15
-    },
     separatorContainer: {
-        backgroundColor: '#18265e',
+        backgroundColor: '#333778',
         padding:3
     },
     separatorText: {

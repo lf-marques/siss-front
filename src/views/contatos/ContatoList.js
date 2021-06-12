@@ -4,16 +4,26 @@ import { Avatar } from 'react-native-elements/dist/avatar/Avatar'
 import { ListItem, Button, Icon } from 'react-native-elements'
 import PFAbstract from '../../services/pessoaFisica/Abstract'
 import Contato from '../../services/contato/Index'
+import Helper from '../../services/Helper'
 
 export default props => {
 
     const [usrData, setUsrData] = useState(null);
 
     function init(refresh = false) {
-        if(!usrData || refresh) {
+        var goBack = props.route.params ? props.route.params.goBack : false
+        
+        if(!usrData || refresh || goBack) {
             PFAbstract.getByCurrentToken().then((response => {
                 if(response['success']) {
-                    setUsrData(response.data)
+                    let responseContatos = response.data.contatos
+                    let usrContatos = usrData ? usrData.contatos : null
+
+                    if(!goBack) {
+                        setUsrData(response.data)
+                    }else if(usrData && Helper.isObjsDiff(responseContatos, usrContatos)) {
+                        setUsrData(response.data)
+                    }
                 }else if(response['error']){
                     Alert.alert(response.message)
                 }
@@ -63,11 +73,6 @@ export default props => {
     return (
         <View>
             {init()}
-            <Button
-                onPress={() => { init(true) }}
-                type="reload"
-                title="Atualizar"
-            />
             <FlatList
                 keyExtractor={contato => contato.id.toString()}
                 data={usrData && usrData.contatos ? usrData.contatos : null}

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
+import RNPickerSelect from 'react-native-picker-select';
 import Contato from '../../services/contato/Index'
 
 export default ({ route, navigation }) => {
@@ -12,8 +13,7 @@ export default ({ route, navigation }) => {
             Contato.salvar(contato).then((response => {
                 if(response['success']) {
                     Alert.alert(response.message);
-                    navigation.setParams({refrestList: true})
-                    navigation.goBack();
+                    navigation.navigate('ContatoList', {goBack: true})
                 }else if(response['error']) {
                     Alert.alert(response.message);
                 }else {
@@ -36,11 +36,26 @@ export default ({ route, navigation }) => {
                     value={contato.nome}
                 />
                 <Text>Parentesco</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={parentesco => setContato({ ...contato, parentesco })}
-                    placeholder='Informe o grau parentesco'
+                <RNPickerSelect
                     value={contato.parentesco}
+                    style={pickerStyle}
+                    placeholder={{
+                        label: 'Selecione...',
+                        value: null,
+                    }}
+                    onValueChange={parentesco => setContato({ ...contato, parentesco })}
+                    items={[
+                        { label: 'Pai', value: 'pai' },
+                        { label: 'Mãe', value: 'mãe' },
+                        { label: 'Irmão(a)', value: 'irmão(a)' },
+                        { label: 'Tio(a)', value: 'tio(a)' },
+                        { label: 'Avô(a)', value: 'avô(a)' },
+                        { label: 'Primo(a)', value: 'primo(a)' },
+                        { label: 'Amigo(a)', value: 'amigo(a)' },
+                        { label: 'Namorado(a)', value: 'namorado(a)' },
+                        { label: 'Esposo(a)', value: 'esposo(a)' },
+                        { label: 'Outros', value: 'outros' },
+                    ]}
                 />
                 <Text>Telefone</Text>
                 <View style={styles.containerMask}>
@@ -129,3 +144,15 @@ const styles = StyleSheet.create({
         marginRight: 10
     }
 })
+
+const pickerStyle = {
+    inputIOS: {
+        color: 'Black'
+    },
+    placeholder: {
+        color: 'Black',
+      },
+    inputAndroid: {
+        color: 'Black'
+    },
+}

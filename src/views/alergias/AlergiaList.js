@@ -3,23 +3,33 @@ import { View, Text, FlatList ,Alert} from 'react-native'
 import { ListItem, Button, Icon } from 'react-native-elements'
 import PFAbstract from '../../services/pessoaFisica/Abstract'
 import Alergia from '../../services/condicaoClinica/alergias/Index'
+import Helper from '../../services/Helper'
 
 export default props => {
 
     const [usrData, setUsrData] = useState(null);
 
     function init(refresh = false) {
-        if(!usrData || refresh) {
+        var goBack = props.route.params ? props.route.params.goBack : false
+        
+        if(!usrData || refresh || goBack) {
             PFAbstract.getByCurrentToken().then((response => {
                 if(response['success']) {
-                    setUsrData(response.data)
+                    let responseAlergias = response.data.condicaoClinica.alergias
+                    let usrAlergias = usrData ? usrData.condicaoClinica.alergias : null
+
+                    if(!goBack) {
+                        setUsrData(response.data)
+                    }else if(usrData && Helper.isObjsDiff(responseAlergias, usrAlergias)) {
+                        setUsrData(response.data)
+                    }
                 }else if(response['error']){
                     Alert.alert(response.message)
                 }
             }))
         }
     }
-
+    
     function confirmAlergiaDeletion(alergia) {
         Alert.alert('Excluir Alergia', 'Deseja realmente excluir essa Alergia?', [
             {
@@ -55,11 +65,6 @@ export default props => {
     return (
         <View>
             {init()}
-            <Button
-                onPress={() => { init(true) }}
-                type="reload"
-                title="Atualizar"
-            />
             <FlatList
                 keyExtractor={alergia => alergia.id.toString()}
                 data={usrData && usrData.condicaoClinica ? usrData.condicaoClinica.alergias : null}

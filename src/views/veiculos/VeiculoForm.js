@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import Veiculo from '../../services/veiculo/Index'
+import RNPickerSelect from 'react-native-picker-select';
 
 export default ({ route, navigation }) => {
     const [veiculo, setVeiculo] = useState(route.params ? route.params : {})
@@ -34,18 +35,53 @@ export default ({ route, navigation }) => {
                     value={veiculo.modelo}
                 />
                 <Text>Marca</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={marca => setVeiculo({ ...veiculo, marca })}
-                    placeholder='Informe a marca'
+                <RNPickerSelect
                     value={veiculo.marca}
+                    style={pickerStyle}
+                    placeholder={{
+                        label: 'Selecione...',
+                        value: null,
+                    }}
+                    onValueChange={marca => setVeiculo({ ...veiculo, marca })}
+                    items={[
+                        { label: 'Audi ', value: 'audi' },
+                        { label: 'BMW ', value: 'BMW' },
+                        { label: 'Chery ', value: 'chery' },
+                        { label: 'Chevrolet ', value: 'chevrolet' },
+                        { label: 'Citroën', value: 'citroën' },
+                        { label: 'Fiat  ', value: 'fiat' },
+                        { label: 'Ford ', value: 'ford' },
+                        { label: 'Hyundai ', value: 'hyundai' },
+                        { label: 'Honda ', value: 'honda' },
+                        { label: 'Jeep ', value: 'jeep' },
+                        { label: 'Kia', value: 'kia' },
+                        { label: 'Land Rover ', value: 'land rover' },
+                        { label: 'Mitsubishi ', value: 'mitsubishi' },
+                        { label: 'Nissan', value: 'Nissan' },
+                        { label: 'Peugeot ', value: 'peugeot' },
+                        { label: 'Renault  ', value: 'renault' },
+                        { label: 'Toyota', value: 'toyota' },
+                        { label: 'Volkswagen  ', value: 'volkswagen' },
+                        { label: 'Volvo ', value: 'volvo' }
+                    ]}
                 />
                 <Text>Cor</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={cor => setVeiculo({ ...veiculo, cor })}
-                    placeholder='Informe a cor'
+                <RNPickerSelect
                     value={veiculo.cor}
+                    style={pickerStyle}
+                    placeholder={{
+                        label: 'Selecione...',
+                        value: null,
+                    }}
+                    onValueChange={cor => setVeiculo({ ...veiculo, cor })}
+                    items={[
+                        { label: 'Branco', value: 'branco' },
+                        { label: 'Prata', value: 'prata' },
+                        { label: 'Cinza', value: 'cinza' },
+                        { label: 'Preto', value: 'preto' },
+                        { label: 'Vermelho', value: 'vermelho' },
+                        { label: 'Outra', value: 'outra' }
+                    ]}
                 />
                 <Text>Renavam</Text>
                 <TextInput
@@ -104,3 +140,15 @@ const styles = StyleSheet.create({
     },
 
 })
+
+const pickerStyle = {
+    inputIOS: {
+        color: 'Black'
+    },
+    placeholder: {
+        color: 'Black',
+      },
+    inputAndroid: {
+        color: 'Black'
+    },
+}

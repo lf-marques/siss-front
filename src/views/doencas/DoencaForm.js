@@ -19,7 +19,7 @@ export default ({ navigation }) => {
             Doenca.salvarLista(requestData).then((response => {
                 if(response['success']) {
                     Alert.alert(response.message);
-                    navigation.goBack();
+                    navigation.navigate('DoencaList', {goBack: true})
                 }else if(response['error']) {
                     Alert.alert(response.message);
                 }else {

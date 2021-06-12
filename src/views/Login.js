@@ -8,8 +8,8 @@ export default props => {
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
-    const [login, setLogin] = useState('usuario_executante_teste')
-    const [senha, setSenha] = useState('teste123')
+    const [login, setLogin] = useState('teste12399')
+    const [senha, setSenha] = useState('123456789')
 
     const entrar = () => {
         if(login !='' && senha !=''){

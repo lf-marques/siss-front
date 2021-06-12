@@ -28,7 +28,7 @@ export default ({ navigation }) => {
             Alergia.salvarLista(requestData).then((response => {
                 if(response['success']) {
                     Alert.alert(response.message);
-                    navigation.goBack();
+                    navigation.navigate('AlergiaList', {goBack: true})
                 }else if(response['error']) {
                     Alert.alert(response.message);
                 }else {

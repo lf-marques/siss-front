@@ -13,6 +13,9 @@ const Helper = {
     },
     removeSpecialCharacters(str) {
         return str.replace(/[^\w\s]/gi, "")
+    },
+    isObjsDiff(obj1, obj2) {
+        return JSON.stringify(obj1) != JSON.stringify(obj2)
     }
 }
 export default Helper;

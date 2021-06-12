@@ -19,6 +19,11 @@ export default props => {
         }
     }
 
+    const searchByClick = (key) => {
+        setSearchBy(key)
+        setSearchValue(null)
+    }
+
     return (
         <KeyboardAvoidingView style={styles.background}>
             <View style={styles.containerLogo}>
@@ -48,19 +53,19 @@ export default props => {
                     <RadioButton
                         value="CPF"
                         status={ searchBy === 'CPF' ? 'checked' : 'unchecked' }
-                        onPress={() => setSearchBy('CPF')}
+                        onPress={() => searchByClick('CPF')}
                     />
                      <Text style={{ fontSize: 15 }}>CPF</Text>
                     <RadioButton
                         value="RG"
                         status={ searchBy === 'RG' ? 'checked' : 'unchecked' }
-                        onPress={() => setSearchBy('RG')}
+                        onPress={() => searchByClick('RG')}
                     />
                      <Text style={{ fontSize: 15 }}>RG</Text>
                     <RadioButton
                         value="Placa"
                         status={ searchBy === 'Placa' ? 'checked' : 'unchecked' }
-                        onPress={() => setSearchBy('Placa')}
+                        onPress={() => searchByClick('Placa')}
                     />
                      <Text style={{ fontSize: 15 }}>Placa</Text>
                 </View>

@@ -48,6 +48,22 @@ export default props => {
                 </View>
             )
         }
+        return (
+            <View style={styles.condicional}>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={styles.btnShow}
+                        onPress={() => {
+                            { props.navigation.navigate("Veiculos") }
+                        }}
+                    >
+                        <Text style={styles.submitText}
+                        >Meus Veículos</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        )
     }
     function CadContato() {
         if (usrData && !usrData.contatos) {
@@ -71,6 +87,22 @@ export default props => {
                 </View>
             )
         }
+        return (
+            <View style={styles.condicional}>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={styles.btnShow}
+                        onPress={() => {
+                            { props.navigation.navigate("Contatos") }
+                        }}
+                    >
+                        <Text style={styles.submitText}
+                        >Meus Contatos</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        )
     }
     function CadDoenca() {
         if (usrData && (!usrData.condicaoClinica || !usrData.condicaoClinica.doencas)) {
@@ -95,6 +127,21 @@ export default props => {
                 </View>
             )
         }
+        return (
+            <View style={styles.condicional}>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={styles.btnShow}
+                        onPress={() => {
+                            { props.navigation.navigate("Doencas") }
+                        }}
+                    >
+                        <Text style={styles.submitText}
+                        >Minhas Doenças</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
     }
     function CadAlergia() {
         if (usrData && (!usrData.condicaoClinica || !usrData.condicaoClinica.alergias)) {
@@ -119,6 +166,22 @@ export default props => {
                 </View>
             )
         }
+        return (
+            <View style={styles.condicional}>
+                <View style={{ alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={styles.btnShow}
+                        onPress={() => {
+                            { props.navigation.navigate("Alergias") }
+                        }}
+                    >
+                        <Text style={styles.submitText}
+                        >Minhas Alergias</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+        )
     }
 
     return (
@@ -169,6 +232,14 @@ const styles = StyleSheet.create({
     },
     btnSubmit: {
         backgroundColor: '#AD0E3D',
+        width: '60%',
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 30,
+    },
+    btnShow: {
+        backgroundColor: '#278760',
         width: '60%',
         height: 35,
         justifyContent: 'center',
