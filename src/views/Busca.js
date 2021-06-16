@@ -10,7 +10,7 @@ import { BackHandler } from 'react-native';
 
 export default props => {
     const [searchBy, setSearchBy] = useState('CPF');
-    const [searchValue, setSearchValue] = useState('48492280034');
+    const [searchValue, setSearchValue] = useState('12617587908');
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', validateToken);

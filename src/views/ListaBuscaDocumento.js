@@ -4,7 +4,7 @@ import { View, Text, Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet, 
 import { Button, Input, Icon, ListItem } from 'react-native-elements'
 import PFAbstract from '../services/pessoaFisica/Abstract'
 import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
-
+import Helper from '../services/Helper'
 
 export default props => {
     const [isMulti, setIsMulti] = useState(false)
@@ -53,7 +53,7 @@ export default props => {
         return (
             <ListItem>
                 <ListItem.Content>
-                    <ListItem.Title>Tipo: {condicaoClinica.tipo}</ListItem.Title>
+                    <ListItem.Title>{condicaoClinica.tipo}</ListItem.Title>
                     <ListItem.Subtitle>Atualizado em: {condicaoClinica.dataAtualizacao}</ListItem.Subtitle>
                 </ListItem.Content>
             </ListItem>
@@ -64,8 +64,9 @@ export default props => {
         return (
             <Collapse>
                 <CollapseHeader>
-                    <View style={{backgroundColor: '#0c1274', padding:3 }}>
+                    <View style={styles.separatorContainerExternal}>
                         <Text style={{fontSize: 20, color: '#FFF', fontWeight: 'bold'}}>{info.nome}</Text>
+                            <Text style={styles.collapseText}>expandir</Text>
                     </View>
                 </CollapseHeader>
                 <CollapseBody>
@@ -73,22 +74,45 @@ export default props => {
                         <View style={styles.separatorContainer}>
                             <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
                         </View>
-                        <Text>Nome: {info.nome}</Text>
-                        <Text>CPF: {info.cpf}</Text>
-                        <Text>RG: {info.rg}</Text>
-                        <Text>Tel.: {info.telefone}</Text>
-                        <Text>Cel.: {info.celular}</Text>
-                        <Text>Data Nasc.: {info.dataNascimento}</Text>
-                        <Text>
-                            Convênio Médico: 
-                            {info.condicaoClinica.convenioMedico == 'NP' ? 
-                            'Não possuí' : info.condicaoClinica.convenioMedico}
+                        <Text style={styles.containerLabelInfoPessoais} >
+                            <Text style={styles.labelBold}>Nome: </Text>
+                            {info.nome}
                         </Text>
-                        <Text>Tipo Sanguineo: {info.condicaoClinica.tipoSanguineo}</Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>CPF: </Text>
+                            {Helper.formatCpf(info.cpf)}
+                        </Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>RG: </Text>
+                            {Helper.formatRg(info.rg)}
+                        </Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>Tel.: </Text>
+                            {info.telefone}
+                        </Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>Cel.: </Text>
+                            {info.celular}
+                        </Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>Data Nasc.: </Text>
+                            {Helper.formatDateAndRemoveTime(info.dataNascimento)}
+                        </Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>Convênio Médico:: </Text>
+                            {info.condicaoClinica.convenioMedico == 'NP' ? 
+                            'Não possui' : info.condicaoClinica.convenioMedico}
+                        </Text>
+                        <Text style={styles.containerLabelInfoPessoais}>
+                            <Text style={styles.labelBold}>Tipo Sanguineo: </Text>
+                            {info.condicaoClinica.tipoSanguineo == 'NI' ? 
+                            'Não soube informar' : info.condicaoClinica.tipoSanguineo}
+                        </Text>
                         <Collapse>
                             <CollapseHeader>
                                 <View style={styles.separatorContainer}>
                                     <Text style={styles.separatorText}>VEÍCULOS</Text>
+                                    <Text style={styles.collapseText}>expandir</Text>
                                 </View>
                             </CollapseHeader>
                             <CollapseBody>
@@ -105,6 +129,7 @@ export default props => {
                             <CollapseHeader>
                                 <View style={styles.separatorContainer}>
                                     <Text style={styles.separatorText}>CONTATOS</Text>
+                                    <Text style={styles.collapseText}>expandir</Text>
                                 </View>
                             </CollapseHeader>
                             <CollapseBody>
@@ -121,6 +146,7 @@ export default props => {
                             <CollapseHeader>
                                 <View style={styles.separatorContainer}>
                                     <Text style={styles.separatorText}>ALERGIAS</Text>
+                                    <Text style={styles.collapseText}>expandir</Text>
                                 </View>
                             </CollapseHeader>
                             <CollapseBody>
@@ -137,6 +163,7 @@ export default props => {
                             <CollapseHeader>
                                 <View style={styles.separatorContainer}>
                                     <Text style={styles.separatorText}>DOENCAS</Text>
+                                    <Text style={styles.collapseText}>expandir</Text>
                                 </View>
                             </CollapseHeader>
                             <CollapseBody>
@@ -192,8 +219,13 @@ export default props => {
                     borderBottomRightRadius: 20,
                 }}>
                     <Text style={{ fontSize: 30, color: '#FFF', fontWeight: 'bold' }}>
-                        Resultado:
+                        Busca
                     </Text>
+            </View>
+            <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                    Encontramos o(s) seguinte(s) usuário(s):
+                </Text>
             </View>
             <View>
                 {getData()}  
@@ -226,13 +258,37 @@ const styles = StyleSheet.create({
         width: '100%',
         padding:20,
     },
-    separatorContainer: {
-        backgroundColor: '#333778',
+    separatorContainerExternal: {
+        flexDirection: 'row',
+        borderBottomColor: 'white',
+        borderBottomWidth: 2,
+        backgroundColor: '#3d3d3d', 
         padding:3
+    },
+    separatorContainer: {
+        backgroundColor: '#636363',
+        padding:6,
+        flexDirection: 'row',
+        borderBottomColor: 'white',
+        borderBottomWidth: 2,
     },
     separatorText: {
         fontSize: 15, 
         color: '#FFF', 
+        fontWeight: 'bold'
+    },
+    collapseText: {
+        fontSize: 13, 
+        color: '#FFF', 
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'right'
+    },
+    containerLabelInfoPessoais: {
+        padding: 5,
+        fontSize: 15 
+    },
+    labelBold: {
         fontWeight: 'bold'
     }
 })
