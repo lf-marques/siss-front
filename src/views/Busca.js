@@ -1,14 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { Alert } from 'react-native'
 import { View, Text, Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Character } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
+import OauthToken from '../services/oauthToken/Token'
+import { BackHandler } from 'react-native';
 
 
 export default props => {
     const [searchBy, setSearchBy] = useState('CPF');
     const [searchValue, setSearchValue] = useState('48492280034');
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', validateToken);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', validateToken);
+        };
+    }, [])
+
+    const validateToken = () => {
+        OauthToken.getTokenStorage().then((response => {
+            if(!response || !response['token']) {
+                props.navigation.navigate("login")
+            }
+        }))
+    }
+
+    const sair = () => {
+        OauthToken.clearToken().then((status => {
+            if(status) {
+                props.navigation.navigate("login")
+            }
+        }))
+    }
 
     const buscar = () => {
         if (searchValue && searchValue != '') {
@@ -48,7 +73,11 @@ export default props => {
                 </Text>
             </View >
             <View style={styles.views}>
-                
+                <Button
+                    onPress={() => { sair() }}
+                    type="exit"
+                    title="Sair"
+                />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton
                         value="CPF"

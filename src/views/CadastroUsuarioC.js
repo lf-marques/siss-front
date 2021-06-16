@@ -13,10 +13,10 @@ export default props => {
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
     
-    const [usuario, setUsuario] = useState('teste123')
-    const [email, setEmail] = useState('teste123@email.com')
-    const [senha, setSenha] = useState('123456789')
-    const [senhaConfirmacao, setSenhaConfirmacao] = useState('123456789')
+    const [usuario, setUsuario] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [senha, setSenha] = useState(null)
+    const [senhaConfirmacao, setSenhaConfirmacao] = useState(null)
 
     const proximaPagina = () => {
         if(validar()) {
@@ -41,18 +41,18 @@ export default props => {
         let valid = true
         let message = 'preecha o campo '
 
-        if(!usuario) {
+        if(!usuario || usuario.length < 5) {
             valid = false
-            message += '"usuário"'
-        }else if(!email) {
+            message += '"usuário (5 a 100 caracteres)"'
+        }else if(!email || email.length < 10 || !email.includes('@')) {
             valid = false
-            message += '"e-mail"'
-        }else if(!senha) {
+            message += '"e-mail  (10 a 100 caracteres)"'
+        }else if(!senha || senha.length < 8) {
             valid = false
-            message += '"senha"'
-        }else if(!senhaConfirmacao) {
+            message += '"senha (8 a 25 caracteres)"'
+        }else if(!senhaConfirmacao || senhaConfirmacao.length < 8) {
             valid = false
-            message += '"confirmar senha"'
+            message += '"confirmar senha (8 a 25 caracteres)"'
         }else if(senha != senhaConfirmacao) {
             valid = false
             message = 'Senhas diferentes, por favor verifique'

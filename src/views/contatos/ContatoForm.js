@@ -61,12 +61,8 @@ export default ({ route, navigation }) => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="Telefone"
-                        type={'cel-phone'}
-                        options={{
-                            maskType: 'BRL',
-                            withDDD: true,
-                            dddMask: '(99) '
-                        }}
+                        type={'custom'}
+                        options={{mask: '(99) 9999-9999'}}
                         value={contato.telefone}
                         onChangeText={telefone => setContato({ ...contato, telefone})}
                         keyboardType="number-pad"

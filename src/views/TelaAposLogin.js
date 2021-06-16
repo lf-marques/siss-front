@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Image, Alert } from 'react-native'
 import { Button, Icon } from 'react-native-elements'
 import PessoaFisicaAbstract from '../services/pessoaFisica/Abstract'
-
+import OauthToken from '../services/oauthToken/Token'
+import { BackHandler } from 'react-native';
 
 export default props => {
 
-    const pVeiculo = false
-    const pContato = false
-    const pAlergia = false
-    const pDoenca = false
-
     const [usrData, setUsrData] = useState(null)
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', validateToken);
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', validateToken);
+        };
+    }, [])
+
+    function validateToken() {
+        OauthToken.getTokenStorage().then((response => {
+            if(!response || !response['token']) {
+                props.navigation.navigate("login")
+            }
+        }))
+    }
 
     function init(refresh = false) {
         if(!usrData || refresh) {
@@ -23,6 +34,14 @@ export default props => {
                 }
             }))
         }
+    }
+
+    function sair() {
+        OauthToken.clearToken().then((status => {
+            if(status) {
+                props.navigation.navigate("login")
+            }
+        }))
     }
 
     function CadVeiculo() {
@@ -214,6 +233,11 @@ export default props => {
                 onPress={() => { init(true) }}
                 type="reload"
                 title="Atualizar"
+            />
+            <Button
+                onPress={() => { sair() }}
+                type="exit"
+                title="Sair"
             />
             <View style={{ backgroundColor: '#FFF' }}>
                 {init()}

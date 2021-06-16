@@ -3,6 +3,17 @@ import Api from '../Api'
 import Helper from '../Helper'
 
 const OauthToken = {
+    async login(login, senha) {
+        if(login.includes('@')) {
+            return await OauthToken.getTokenByEmail(login, senha)
+        }else {
+            return await OauthToken.getTokenByUsername(login, senha)
+        }
+    },
+    async clearToken() {
+        await removeTokenStorage()
+        return true
+    },
     async getTokenByUsername(username, senha){
         try {
             const response = await Api.post("auth/username", {usuario: username, senha: senha })
@@ -26,6 +37,14 @@ const OauthToken = {
         }catch(e) {
             console.log(e.message)
         }    
+    }
+}
+
+const removeTokenStorage = async() => {
+    try {
+        await AsyncStorage.removeItem("@TokenData")
+    }catch(e) {
+        console.log(e)
     }
 }
 

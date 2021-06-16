@@ -26,6 +26,7 @@ const CadastroUsuario = {
                     if(pfResponse['success']) {
                         const condicaoClinicaResponse = await CondicaoClinica.salvar(data.cdClinica)
                         if(condicaoClinicaResponse['success']) {
+                            await OauthToken.clearToken()
                             return {success: true, message: 'Cadastro realizado com sucesso, prossiga para o login!'}
                         }else {
                             return condicaoClinicaResponse

@@ -8,27 +8,18 @@ export default props => {
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
-    const [login, setLogin] = useState('teste12399')
-    const [senha, setSenha] = useState('123456789')
+    const [login, setLogin] = useState(null)
+    const [senha, setSenha] = useState(null)
 
     const entrar = () => {
-        if(login !='' && senha !=''){
+        if(login &&  login != '' && senha && senha !=''){
             
             //Obtem o token de acesso de API com base nos dados de login
-            OauthToken.getTokenByUsername(login, senha).then((response => {
+            OauthToken.login(login, senha).then((response => {
+                console.log(response)
                 if(response['success']) {
                     Alert.alert('Logado com sucesso')
-                    if(response.tokenData.executante == 0){
-                        props.navigation.reset({
-                            index: 0,
-                            routes: [{ name: "Drawer" }]
-                        })
-                    }else{
-                        props.navigation.reset({
-                            index: 0,
-                            routes: [{ name: "Busca" }]
-                        })
-                    }                    
+                    redirectByType(response.tokenData.executante)                  
                 }else if(response['error']) {
                     Alert.alert(response.message)
                 }else {
@@ -39,7 +30,27 @@ export default props => {
             Alert.alert('Preencha os campos')
         }
     }
+
+    const redirectByType = (type) => {
+        if(type == 0) {
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: "Drawer" }]
+            })
+        }else {
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: "Busca" }]
+            })
+        }
+    }
+
     useEffect(() => {
+        OauthToken.getTokenStorage().then((response => {
+            if(response && response['token']) {
+                redirectByType(response.executante)
+            }
+        }))
 
         keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow)
         keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide)
@@ -114,7 +125,7 @@ export default props => {
             ]}>
 
                 <Input
-                    placeholder='Usuário'
+                    placeholder='usuário ou email'
                     leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                     onChangeText={text => setLogin(text)}
                     value={login}
@@ -154,7 +165,6 @@ export default props => {
                 </TouchableOpacity>
             </Animated.View>
         </KeyboardAvoidingView>
-
     )
 }
 

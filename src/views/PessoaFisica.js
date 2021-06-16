@@ -16,12 +16,12 @@ export default props => {
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
 
     
-    const [nomeCompleto, setNomeCompleto] = useState('Luan Felipe Marques')
-    const [cpf, setCpf] = useState('484.922.800-34')
-    const [rg, setRg] = useState('41.105.316-4')
-    const [dataNascimento, setDataNascimento] = useState('05/04/2001')
-    const [telefone, setTelefone] = useState('(43) 3357-4186')
-    const [celular, setCelular] = useState('(43) 98477-6675')
+    const [nomeCompleto, setNomeCompleto] = useState(null)
+    const [cpf, setCpf] = useState(null)
+    const [rg, setRg] = useState(null)
+    const [dataNascimento, setDataNascimento] = useState(null)
+    const [telefone, setTelefone] = useState(null)
+    const [celular, setCelular] = useState(null)
     
 
     const proximaPagina = () => {
@@ -56,16 +56,16 @@ export default props => {
             message += '"nome"'
         }else if(!cpf) {
             message += '"cpf"'
-        }else if(!rg) {
+        }else if(!rg  || rg.length != 12) {
             valid = false
             message += '"rg"'
-        }else if(!dataNascimento) {
+        }else if(!dataNascimento  || dataNascimento.length != 10) {
             valid = false
             message += '"data de nascimento"'
-        }else if(!telefone) {
+        }else if(!telefone || telefone.length != 14) {
             valid = false
             message += '"telefone"'
-        }else if(!celular) {
+        }else if(!celular  || celular.length != 15) {
             valid = false
             message += '"celular"'
         }else if(!PFAbstract.validarCpf(cpf)) {
@@ -137,12 +137,8 @@ export default props => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="Telefone"
-                        type={'cel-phone'}
-                        options={{
-                            maskType: 'BRL',
-                            withDDD: true,
-                            dddMask: '(99) '
-                        }}
+                        type={'custom'}
+                        options={{mask: '(99) 9999-9999'}}
                         value={telefone}
                         onChangeText={telefone => setTelefone(telefone)}
                         keyboardType="number-pad"
