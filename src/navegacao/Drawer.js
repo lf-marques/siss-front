@@ -6,6 +6,7 @@ import TelaAlergias from '../views/alergias/TelaAlergias'
 import TelaContatos from '../views/contatos/TelaContatos'
 import TelaDoencas from '../views/doencas/TelaDoencas'
 import TelaVeiculos from '../views/veiculos/TelaVeiculos'
+import TelaConfigs from '../views/configuracoes/TelaConfigs'
 
 const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()
@@ -19,6 +20,7 @@ export default props => (
         <Drawer.Screen name="Alergias" component={TelaAlergias} />
         <Drawer.Screen name="Contatos" component={TelaContatos} />
         <Drawer.Screen name="Veiculos" component={TelaVeiculos} />
+        <Drawer.Screen name="Configurações" component={TelaConfigs} />
     </Drawer.Navigator>
 )
 

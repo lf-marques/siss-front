@@ -66,13 +66,13 @@ export default props => {
                 <CollapseHeader>
                     <View style={styles.separatorContainerExternal}>
                         <Text style={{fontSize: 20, color: '#FFF', fontWeight: 'bold'}}>{info.nome}</Text>
-                            <Text style={styles.collapseText}>expandir</Text>
+                        <Text style={styles.collapseText}>expandir</Text>
                     </View>
                 </CollapseHeader>
                 <CollapseBody>
                     <View>
                         <View style={styles.separatorContainer}>
-                            <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
+                        <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
                         </View>
                         <Text style={styles.containerLabelInfoPessoais} >
                             <Text style={styles.labelBold}>Nome: </Text>

@@ -7,7 +7,6 @@ import Helper from '../Helper'
 const CadastroUsuario = {
     async cadastrar(data) {
         try {
-            data = prepareData(data)
             const valid = await CadastroUsuario.checkExists(data.user.usuario, data.user.email, data.pf.cpf,data.pf.rg)
             
             if(!valid.error) {
@@ -93,18 +92,23 @@ const CadastroUsuario = {
         }catch(error) {
             return {error: true, message: "erro interno"}
         }
+    },
+    async alterarSenha(senhaAtual, novaSenha) {
+        try {
+            const tokenData = await OauthToken.getTokenStorage();
+            const response = await Api.post('api/usuario/alterarSenha',
+                {idUsuario: tokenData.usrId, 
+                    novaSenha: novaSenha, 
+                    senhaAtual: senhaAtual
+                },
+                {headers: {"Authorization" : tokenData.token}}
+            );
+            
+            return {success: true, data: response.data.dados}
+            }catch(error) {
+            return Helper.getResponseError(error)
+        }
     }
-}
-
-const prepareData = (data) => {
-    data.pf.cpf = Helper.removeSpecialCharacters(data.pf.cpf)
-    data.pf.rg = Helper.removeSpecialCharacters(data.pf.rg)
-
-    let darr = data.pf.dataNascimento.split('/');
-    let ISOFormat = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
-    data.pf.dataNascimento = ISOFormat.toISOString().split('T')[0]
-
-    return data
 }
 
 export default CadastroUsuario;

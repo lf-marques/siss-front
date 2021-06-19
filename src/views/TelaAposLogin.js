@@ -213,9 +213,7 @@ export default props => {
                     type='clear'
                     icon={<Icon name="menu" size={25} color="white" />}
                 />
-                <Text style={{ fontSize: 20, color: '#FFF' }}>
-                    Menu
-            </Text>
+                <Text style={{ fontSize: 20, color: '#FFF' }}>Menu</Text>
             </View>
             <View style={styles.containerLogo}>
                 <Image
@@ -229,16 +227,26 @@ export default props => {
             <View style={{ flex: .5, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 30, color: '#AD0E3D', fontWeight: 'bold' }}>Bem vindo ao S.I.S</Text>
             </View>
-            <Button
-                onPress={() => { init(true) }}
-                type="reload"
-                title="Atualizar"
-            />
-            <Button
-                onPress={() => { sair() }}
-                type="exit"
-                title="Sair"
-            />
+
+            <View style={{flexDirection: 'row', backgroundColor: '#890b30'}}>
+                <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-end'}}>    
+                    <TouchableOpacity
+                        onPress={() => { init(true) }}
+                        type="reload"
+                    >
+                        <Text style={styles.btnHeader}>Atualizar Tela</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-start' }}>    
+                    <TouchableOpacity
+                        onPress={() => { sair() }}
+                        type="exit"
+                    >
+                        <Text style={styles.btnHeader}>Encerrar Sessão</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            
             <View style={{ backgroundColor: '#FFF' }}>
                 {init()}
                 {CadVeiculo()}
@@ -253,6 +261,10 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         backgroundColor: '#FFF',
+    },
+    btnHeader: {
+        color: '#FFF',
+        padding: 5
     },
     btnSubmit: {
         backgroundColor: '#AD0E3D',

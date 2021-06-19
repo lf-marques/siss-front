@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'
+import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import CadastroUsuario from '../../services/cadastroUsuario/Index'
@@ -9,11 +9,13 @@ export default props => {
     const [senha, setSenha] = useState(null)
     const [cSenha, setCSenha] = useState(null)
     const [codigo, setCodigo] = useState(null)
+    const [visibleLoader, setVisibleLoader] = useState(false)
 
     const info = props.route.params ? props.route.params.info : {}
 
     const redefinirSenha = () => {
         if(validar() && info) {
+            setVisibleLoader(true)
             let request = {
                 idUsuario: info.idUsuario, 
                 codigo: codigo, 
@@ -21,9 +23,11 @@ export default props => {
             }
             CadastroUsuario.redefinirSenha(request).then((response) => {
                 if(response['success']) {
+                    setVisibleLoader(false)
                     Alert.alert('Senha redefinida com sucesso!')
                     props.navigation.navigate("login")
                 }else if(response['error']) {
+                    setVisibleLoader(false)
                     Alert.alert(response.message)
                 }
             })
@@ -65,7 +69,6 @@ export default props => {
                 style={styles.input}
                 autoCorrect={false}
                 placeholder='Código de Verificação'
-                leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                 onChangeText={codigo => setCodigo(codigo)}
             />
 
@@ -73,7 +76,6 @@ export default props => {
                 style={styles.input}
                 autoCorrect={false}
                 placeholder='Senha'
-                leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
                 secureTextEntry={true}
                 onChangeText={senha => setSenha(senha)}
             />
@@ -82,20 +84,25 @@ export default props => {
                 style={styles.input}
                 autoCorrect={false}
                 placeholder='Confirmar Senha'
-                leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
                 secureTextEntry={true}
                 onChangeText={cSenha => setCSenha(cSenha)}
             />
 
-            <TouchableOpacity
-                style={styles.btnSubmit}
-                onPress={() => {
-                    redefinirSenha()
-                }}
-            >
-                <Text style={styles.submitText}
-                >Salvar</Text>
-            </TouchableOpacity>
+            { !visibleLoader &&
+                <TouchableOpacity
+                    style={styles.btnSubmit}
+                    onPress={() => {
+                        redefinirSenha()
+                    }}
+                >
+                    <Text style={styles.submitText}
+                    >Salvar</Text>
+                </TouchableOpacity>
+            }
+
+            { visibleLoader &&
+                <ActivityIndicator size="large" color="#e0000a" />
+            }
         </KeyboardAvoidingView>
     )
 }

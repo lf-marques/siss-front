@@ -34,7 +34,7 @@ const Abstract = {
     async salvar(pf) {
         try {
             const tokenData = await OauthToken.getTokenStorage();
-
+            pf = prepareData(pf)
             if(pf) {
                 await Api.post('api/pessoaFisica',
                     {
@@ -94,6 +94,13 @@ const Abstract = {
 
 const getReponseSuccess = (response) => {
     return {success: true, data: response.data.dados};
+}
+
+const prepareData = (data) => {
+    data.cpf = Helper.removeSpecialCharacters(data.cpf)
+    data.rg = Helper.removeSpecialCharacters(data.rg)
+    data.dataNascimento = Helper.parseDateToSave(data.dataNascimento)
+    return data
 }
 
 export default Abstract;

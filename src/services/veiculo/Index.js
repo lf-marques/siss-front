@@ -28,7 +28,7 @@ const Veiculo = {
                         marca: veiculo.marca,
                         cor: veiculo.cor,
                         renavam: veiculo.renavam,
-                        placa: veiculo.placa,
+                        placa: veiculo.placa ? veiculo.placa.toUpperCase() : null,
                         pessoaFisicaId: usrData.data.id
                     },
                     {headers: {"Authorization" : tokenData.token}}

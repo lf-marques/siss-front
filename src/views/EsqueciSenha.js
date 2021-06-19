@@ -1,22 +1,30 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
 
-export default props => {
+export default props => {   
     const [email, setEmail] = useState(null)
+    const [visibleLoader, setVisibleLoader] = useState(false)
 
     const enviarCodigo = () => {
-        CadastroUsuario.enviarCodigoRecuperacao(email).then((response) => {
-            if(response['success']) {
-                Alert.alert('Código enviado com sucesso, prossiga para próxima tela.')
-                props.navigation.navigate("SenhaRecuperar", {info: response.data})
-            }else if(response['error']) {
-                Alert.alert(response.message)
-            }
-        })
+        if(email && email != "") {
+            setVisibleLoader(true)
+            CadastroUsuario.enviarCodigoRecuperacao(email).then((response) => {
+                if(response['success']) {
+                    setVisibleLoader(false)
+                    Alert.alert('Código enviado com sucesso, prossiga para próxima tela.')
+                    props.navigation.navigate("SenhaRecuperar", {info: response.data})
+                }else if(response['error']) {
+                    setVisibleLoader(false)
+                    Alert.alert(response.message)
+                }
+            })
+        }else {
+            Alert.alert('Informe o e-mail')
+        }
     }
 
     return (
@@ -30,22 +38,22 @@ export default props => {
                 style={styles.input}
                 autoCorrect={false}
                 placeholder='E-mail'
-                leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                 onChangeText={email => setEmail(email)}
             />
 
-            <TouchableOpacity
-                style={styles.btnSubmit}
-                onPress={() => {
-                    enviarCodigo()
-                }}
-            >
-                <Text style={styles.submitText}
-                >Enviar Código</Text>
-            </TouchableOpacity>
-
+            { !visibleLoader && 
+                <TouchableOpacity style={styles.btnSubmit}
+                    onPress={() => {
+                        enviarCodigo()
+                    }}
+                >
+                    <Text style={styles.submitText}>Enviar Código</Text>
+                </TouchableOpacity>
+            }
+            { visibleLoader &&
+                <ActivityIndicator size="large" color="#e0000a"/>
+            }
         </KeyboardAvoidingView>
-
     )
 }
 
@@ -54,7 +62,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FFF',
     },
-
     input: {
         color: '#222',
         fontSize: 17,

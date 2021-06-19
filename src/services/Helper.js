@@ -3,7 +3,12 @@ import moment from 'moment';
 const Helper = {
     getResponseError(error) {
         let msg = ''
-        if(error['response']['data']['erros']) {
+        if(
+            error && 
+            error['response'] &&
+            error['response']['data'] &&
+            error['response']['data']['erros']
+        ) {
             msg =  error.response.data.erros.reduce((result, item) => {
                 return `${item}\n`
             }, "");
@@ -37,6 +42,11 @@ const Helper = {
     },
     formatDateAndRemoveTime(date) {
         return moment(date).format('DD/MM/YYYY')
+    },
+    parseDateToSave(date) {
+        let darr = date.split('/');
+        let ISOFormat = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
+        return ISOFormat.toISOString().split('T')[0]
     }
 }
 export default Helper;

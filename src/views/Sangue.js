@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
@@ -14,6 +14,7 @@ export default props => {
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
+    const [visibleLoader, setVisibleLoader] = useState(false)
     
     const [checked, setChecked] = useState(null);
     const [checked2, setChecked2] = useState(null);
@@ -21,6 +22,7 @@ export default props => {
 
     const cadastrar = () => {
         if(validar()) {
+            setVisibleLoader(true)
             let allPageDate = {
                 user: userAndPfPageDate.user,
                 pf: userAndPfPageDate.pf,
@@ -31,11 +33,14 @@ export default props => {
             }
             CadastroUsuario.cadastrar(allPageDate).then((response => {
                 if(response['success']) {
+                    setVisibleLoader(false)
                     Alert.alert(response.message)
                     props.navigation.navigate("login")
                 }else if(response['error']) {
+                    setVisibleLoader(false)
                     Alert.alert(response.message)
                 }
+                setVisibleLoader(false)
             }))
         }
     }
@@ -183,18 +188,22 @@ export default props => {
             <View>
 
             </View>
-            <View style={{ marginTop: 15, alignItems: 'center' }}>
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => {
-                        {cadastrar()}
-                    }}
-                >
-                    <Text style={styles.submitText}
-                    >Salvar</Text>
-                </TouchableOpacity>
-            </View>
-
+            {!visibleLoader &&
+                <View style={{ marginTop: 15, alignItems: 'center' }}>
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => {
+                            {cadastrar()}
+                        }}
+                    >
+                        <Text style={styles.submitText}
+                        >Salvar</Text>
+                    </TouchableOpacity>
+                </View>
+            }
+            { visibleLoader &&
+                <ActivityIndicator size="large" color="#e0000a" />
+            }
         </KeyboardAvoidingView >
     )
 }

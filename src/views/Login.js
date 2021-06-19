@@ -16,7 +16,6 @@ export default props => {
             
             //Obtem o token de acesso de API com base nos dados de login
             OauthToken.login(login, senha).then((response => {
-                console.log(response)
                 if(response['success']) {
                     Alert.alert('Logado com sucesso')
                     redirectByType(response.tokenData.executante)                  

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
-import { Button, Input, Icon } from 'react-native-elements'
 import Veiculo from '../../services/veiculo/Index'
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -92,6 +91,7 @@ export default ({ route, navigation }) => {
                 />
                 <Text>Placa</Text>
                 <TextInput
+                    autoCapitalize='characters' 
                     style={styles.input}
                     onChangeText={placa => setVeiculo({ ...veiculo, placa })}
                     placeholder='Informe a placa'

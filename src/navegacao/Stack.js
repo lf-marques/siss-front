@@ -5,6 +5,7 @@ import Login from '../views/Login'
 import CadastroUsuarioC from '../views/CadastroUsuarioC'
 import Esqueci from '../views/EsqueciSenha'
 import SenhaRecuperar from '../views/recuperarSenha/Recuperar'
+import SenhaAlterar from '../views/recuperarSenha/Alterar'
 import Drawer from '../navegacao/Drawer'
 import Busca from '../views/Busca'
 import ListaBuscaDocumento from '../views/ListaBuscaDocumento'
@@ -22,6 +23,7 @@ export default props=> (
         <Stack.Screen name="Sangue" options={{title: 'Sangue'}} component={Sangue}/>
         <Stack.Screen name="Esqueci" options={{title: 'Esqueci Senha'}} component={Esqueci}/>
         <Stack.Screen name="SenhaRecuperar" options={{title: 'Recuperar Senha'}} component={SenhaRecuperar}/>
+        <Stack.Screen name="SenhaAlterar" options={{title: 'Alterar Senha'}} component={SenhaAlterar}/>
         <Stack.Screen name="Drawer"  options={{title: 'Inicial'}} component={Drawer}/>
         <Stack.Screen name="Busca"  options={{title: 'Busca'}} component={Busca}/>  
         <Stack.Screen name="ListaBuscaDocumento"  options={{title: 'BuscaCPF'}} component={ListaBuscaDocumento}/>  

@@ -55,6 +55,7 @@ export default props => {
             valid = false
             message += '"nome"'
         }else if(!cpf) {
+            valid = false
             message += '"cpf"'
         }else if(!rg  || rg.length != 12) {
             valid = false
@@ -92,7 +93,6 @@ export default props => {
                     autoCorrect={false}
                     placeholder='Nome Completo'
                     value={nomeCompleto}
-                    leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                     onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
                 />
 
