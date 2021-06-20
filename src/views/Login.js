@@ -18,7 +18,7 @@ export default props => {
             OauthToken.login(login, senha).then((response => {
                 if(response['success']) {
                     Alert.alert('Logado com sucesso')
-                    redirectByType(response.tokenData.executante)                  
+                    redirectByType(response.tokenData.executante)                
                 }else if(response['error']) {
                     Alert.alert(response.message)
                 }else {
