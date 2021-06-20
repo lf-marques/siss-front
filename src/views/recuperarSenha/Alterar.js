@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { View, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator, TextInput } from 'react-native'
-import { TextInputMask } from 'react-native-masked-text'
-import RNPickerSelect from 'react-native-picker-select';
 import CadastroUsuario from '../../services/cadastroUsuario/Index'
 
 export default props => {
@@ -72,6 +70,7 @@ export default props => {
                 <Text>Senha atual</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     autoCorrect={false}
                     placeholder='Senha atual'
                     value={senhaAtual}
@@ -82,6 +81,7 @@ export default props => {
                 <Text>Nova senha</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     autoCorrect={false}
                     placeholder='Nova Senha'
                     value={novaSenha}
@@ -92,6 +92,7 @@ export default props => {
                 <Text>Confirme a nova senha</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     autoCorrect={false}
                     placeholder='Confirme a nova senha'
                     value={novaSenhaConfirm}

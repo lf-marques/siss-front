@@ -31,6 +31,7 @@ export default ({ route, navigation }) => {
                 <Text>Nome</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     onChangeText={nome => setContato({ ...contato, nome })}
                     placeholder='Informe o nome do Contato'
                     value={contato.nome}
@@ -60,6 +61,7 @@ export default ({ route, navigation }) => {
                 <Text>Telefone</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="Telefone"
                         type={'custom'}
                         options={{mask: '(99) 9999-9999'}}
@@ -73,6 +75,7 @@ export default ({ route, navigation }) => {
                 <Text>Celular</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="Celular"
                         type={'cel-phone'}
                         options={{
@@ -110,6 +113,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
         marginBottom: 10,
+        color: 'black'
     },
     btnSubmit: {
         backgroundColor: '#AD0E3D',
@@ -131,7 +135,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "#999",
         borderBottomWidth: 1,
         borderStyle: "solid",
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        color: 'black'
     },
     containerMask: {
         flexDirection: "row",
@@ -143,7 +148,7 @@ const styles = StyleSheet.create({
 
 const pickerStyle = {
     inputIOS: {
-        color: 'Black'
+        color: 'Black',
     },
     placeholder: {
         color: 'Black',

@@ -135,6 +135,7 @@ export default props => {
                 <Text>Nome Completo</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     autoCorrect={false}
                     placeholder='Nome Completo'
                     value={nomeCompleto}
@@ -144,6 +145,7 @@ export default props => {
                 <Text>CPF</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="CPF"
                         type={'cpf'}
                         value={cpf}
@@ -157,6 +159,7 @@ export default props => {
                 <Text>RG</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="RG"
                         type={'custom'}
                         options={{mask: '99.999.999-9'}}
@@ -171,6 +174,7 @@ export default props => {
                 <Text>Data de Nascimento</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="Data de Nascimento"
                         type={'datetime'}
                         options={{ format: 'DD/MM/YYYY' }}
@@ -185,6 +189,7 @@ export default props => {
                 <Text>Telefone</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="Telefone"
                         type={'custom'}
                         options={{mask: '(99) 9999-9999'}}
@@ -199,6 +204,7 @@ export default props => {
                 <Text>Celular</Text>
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder="Celular"
                         type={'cel-phone'}
                         options={{
@@ -239,6 +245,7 @@ export default props => {
                 <Text>Convênio Médico</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     autoCorrect={false}
                     placeholder='Convênio Médico'
                     value={convenioMedico}
@@ -286,6 +293,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
         marginBottom: 10,
+        color: 'black'
     },
     buttonsContainer: {
         width: '100%',
@@ -326,7 +334,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "#999",
         borderBottomWidth: 1,
         borderStyle: "solid",
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        color: 'black'
     },
     containerMask: {
         flexDirection: "row",

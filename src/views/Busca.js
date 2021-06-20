@@ -101,6 +101,7 @@ export default props => {
 
                 <View style={styles.containerMask}>
                     <TextInputMask
+                        placeholderTextColor="#999999"
                         placeholder={searchBy}
                         type={'custom'}
                         options={{
@@ -169,7 +170,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "#999",
         borderBottomWidth: 1,
         borderStyle: "solid",
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        color: 'black'
     },
     containerMask: {
         flexDirection: "row",

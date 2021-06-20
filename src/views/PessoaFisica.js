@@ -91,6 +91,7 @@ export default props => {
                     style={styles.input}
                     autoCorrect={false}
                     placeholder='Nome Completo'
+                    placeholderTextColor="#999999"
                     value={nomeCompleto}
                     onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
                 />
@@ -98,6 +99,7 @@ export default props => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="CPF"
+                        placeholderTextColor="#999999"
                         type={'cpf'}
                         value={cpf}
                         onChangeText={cpf => setCpf(cpf)}
@@ -110,6 +112,7 @@ export default props => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="RG"
+                        placeholderTextColor="#999999"
                         type={'custom'}
                         options={{mask: '99.999.999-9'}}
                         value={rg}
@@ -123,6 +126,7 @@ export default props => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="Data de Nascimento"
+                        placeholderTextColor="#999999"
                         type={'datetime'}
                         options={{ format: 'DD/MM/YYYY' }}
                         value={dataNascimento}
@@ -136,6 +140,7 @@ export default props => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="Telefone"
+                        placeholderTextColor="#999999"
                         type={'custom'}
                         options={{mask: '(99) 9999-9999'}}
                         value={telefone}
@@ -149,6 +154,7 @@ export default props => {
                 <View style={styles.containerMask}>
                     <TextInputMask
                         placeholder="Celular"
+                        placeholderTextColor="#999999"
                         type={'cel-phone'}
                         options={{
                             maskType: 'BRL',
@@ -184,7 +190,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     },
     input: {
-        color: '#222',
+        color: 'black',
         fontSize: 17,
         height: 15,
         paddingTop: 10
@@ -209,7 +215,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "#999",
         borderBottomWidth: 1,
         borderStyle: "solid",
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        color: 'black'
     },
     containerMask: {
         flexDirection: "row",

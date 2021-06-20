@@ -2,7 +2,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
-import { TextInputMask } from 'react-native-masked-text'
 import CadastroUsuario from '../../services/cadastroUsuario/Index'
 
 export default props => {
@@ -112,9 +111,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FFF',
     },
-
     input: {
-        color: '#222',
+        color: 'black',
         fontSize: 17,
     },
     btnSubmit: {

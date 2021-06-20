@@ -29,6 +29,7 @@ export default ({ route, navigation }) => {
                 <Text>Modelo</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     onChangeText={modelo => setVeiculo({ ...veiculo, modelo })}
                     placeholder='Informe o modelo do veículo'
                     value={veiculo.modelo}
@@ -85,6 +86,7 @@ export default ({ route, navigation }) => {
                 <Text>Renavam</Text>
                 <TextInput
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     onChangeText={renavam => setVeiculo({ ...veiculo, renavam })}
                     placeholder='Informe o renavam'
                     value={veiculo.renavam}
@@ -93,6 +95,7 @@ export default ({ route, navigation }) => {
                 <TextInput
                     autoCapitalize='characters' 
                     style={styles.input}
+                    placeholderTextColor="#999999"
                     onChangeText={placa => setVeiculo({ ...veiculo, placa })}
                     placeholder='Informe a placa'
                     value={veiculo.placa}
@@ -124,6 +127,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
         marginBottom: 10,
+        color: 'black'
     },
     btnSubmit: {
         backgroundColor: '#AD0E3D',

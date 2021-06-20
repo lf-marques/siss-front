@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
 import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'
-import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
 
