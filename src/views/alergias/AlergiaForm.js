@@ -12,8 +12,13 @@ export default ({ navigation }) => {
     const [checkAspirina, setCheckAspirina] = useState(false);
     const [checkAntiInflamatorios, setCheckAntiInflamatorios] = useState(false);
     const [checkRelaxantesMusculares, setCheckRelaxantesMusculares] = useState(false);
+    const [checkNaoPossuo, setCheckNaoPossuo] = useState(false);
 
     const salvar = () => {
+        if(checkNaoPossuo) {
+            navigation.navigate('AlergiaList', {goBack: true})
+            return true   
+        }
         if(validarSelecionado()) {
             const requestData = {
                 antibioticos: checkAntibioticos,
@@ -116,6 +121,14 @@ export default ({ navigation }) => {
                 uncheckedIcon='square-o'
                 checked={checkRelaxantesMusculares}
                 onPress={() => setCheckRelaxantesMusculares(!checkRelaxantesMusculares)}
+            />
+            <CheckBox
+                style={styles.checkBox}
+                title='Não possuo'
+                checkedIcon='check'
+                uncheckedIcon='square-o'
+                checked={checkNaoPossuo}
+                onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
             />
             <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
                 <TouchableOpacity

@@ -7,8 +7,13 @@ export default ({ navigation }) => {
     const [checkDiabetes, setCheckDiabetes] = useState(false);
     const [checkHipertensao, setCheckHipertensao] = useState(false);
     const [checkAsma, setCheckAsma] = useState(false);
+    const [checkNaoPossuo, setCheckNaoPossuo] = useState(false);
 
     const salvar = () => {
+        if(checkNaoPossuo) {
+            navigation.navigate('DoencaList', {goBack: true})
+            return true   
+        }
         if(checkDiabetes || checkHipertensao || checkAsma) {
             const requestData = {
                 diabetes: checkDiabetes,
@@ -60,6 +65,14 @@ export default ({ navigation }) => {
                 uncheckedIcon='square-o'
                 checked={checkAsma}
                 onPress={() => setCheckAsma(!checkAsma)}
+            />
+            <CheckBox
+                style={styles.checkBox}
+                title='Não possuo'
+                checkedIcon='check'
+                uncheckedIcon='square-o'
+                checked={checkNaoPossuo}
+                onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
             />
             <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
                 <TouchableOpacity

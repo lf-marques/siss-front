@@ -71,43 +71,52 @@ export default props => {
                 </CollapseHeader>
                 <CollapseBody>
                     <View>
-                        <View style={styles.separatorContainer}>
-                        <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
-                        </View>
-                        <Text style={styles.containerLabelInfoPessoais} >
-                            <Text style={styles.labelBold}>Nome: </Text>
-                            {info.nome}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>CPF: </Text>
-                            {Helper.formatCpf(info.cpf)}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>RG: </Text>
-                            {Helper.formatRg(info.rg)}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>Tel.: </Text>
-                            {info.telefone}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>Cel.: </Text>
-                            {info.celular}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>Data Nasc.: </Text>
-                            {Helper.formatDateAndRemoveTime(info.dataNascimento)}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>Convênio Médico:: </Text>
-                            {info.condicaoClinica.convenioMedico == 'NP' ? 
-                            'Não possui' : info.condicaoClinica.convenioMedico}
-                        </Text>
-                        <Text style={styles.containerLabelInfoPessoais}>
-                            <Text style={styles.labelBold}>Tipo Sanguineo: </Text>
-                            {info.condicaoClinica.tipoSanguineo == 'NI' ? 
-                            'Não soube informar' : info.condicaoClinica.tipoSanguineo}
-                        </Text>
+                        <Collapse>
+                            <CollapseHeader>
+                                <View style={styles.separatorContainer}>
+                                    <Text style={styles.separatorText}>INFORMAÇÕES PESSOAIS</Text>
+                                    <Text style={styles.collapseText}>expandir</Text>
+                                </View>
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <View>
+                                    <Text style={styles.containerLabelInfoPessoais} >
+                                        <Text style={styles.labelBold}>Nome: </Text>
+                                        {info.nome}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>CPF: </Text>
+                                        {Helper.formatCpf(info.cpf)}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>RG: </Text>
+                                        {Helper.formatRg(info.rg)}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>Tel.: </Text>
+                                        {info.telefone}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>Cel.: </Text>
+                                        {info.celular}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>Data Nasc.: </Text>
+                                        {Helper.formatDateAndRemoveTime(info.dataNascimento)}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>Convênio Médico:: </Text>
+                                        {info.condicaoClinica.convenioMedico == 'NP' ? 
+                                        'Não possui' : info.condicaoClinica.convenioMedico}
+                                    </Text>
+                                    <Text style={styles.containerLabelInfoPessoais}>
+                                        <Text style={styles.labelBold}>Tipo Sanguineo: </Text>
+                                        {info.condicaoClinica.tipoSanguineo == 'NI' ? 
+                                        'Não soube informar' : info.condicaoClinica.tipoSanguineo}
+                                    </Text>
+                                </View>
+                            </CollapseBody>
+                        </Collapse>
                         <Collapse>
                             <CollapseHeader>
                                 <View style={styles.separatorContainer}>
@@ -202,9 +211,11 @@ export default props => {
             }
         }else {
             return (
-                <Text style={{ fontSize: 15, color: 'black', fontWeight: 'bold' }}>
-                    Nenhuma informação encontrada :(
-                </Text>
+                <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 5}}>
+                    <Text style={{ fontSize: 15, color: 'black', fontWeight: 'bold' }}>
+                        Nenhuma informação encontrada :(
+                    </Text>
+                </View>
             )
         }
     }
@@ -224,18 +235,22 @@ export default props => {
             </View>
             <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                    Encontramos o(s) seguinte(s) usuário(s):
+                    { data ? 'Encontramos o(s) seguinte(s) usuário(s):' : null }
                 </Text>
             </View>
             <View>
                 {getData()}  
             </View>
-            <View>
-                <Button
+            <View style={{marginTop: 10, backgroundColor: '#AD0E3D'}}>
+                <TouchableOpacity
                     onPress={() => { props.navigation.goBack() }}
                     type="back"
-                    title="Clique para realizar uma nova busca"
-                />
+                    style={{alignItems: 'center'}}
+                >
+                    <Text style={{ fontSize: 18, color: '#FFF', fontWeight: 'bold', padding: 3}}>
+                        Clique para realizar uma nova busca
+                    </Text>
+                </TouchableOpacity>
             </View>
         </KeyboardAvoidingView >
     )
@@ -262,18 +277,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomColor: 'white',
         borderBottomWidth: 2,
-        backgroundColor: '#3d3d3d', 
+        backgroundColor: '#800026', 
         padding:3
     },
     separatorContainer: {
-        backgroundColor: '#636363',
+        backgroundColor: '#a30030',
         padding:6,
         flexDirection: 'row',
         borderBottomColor: 'white',
         borderBottomWidth: 2,
     },
     separatorText: {
-        fontSize: 15, 
+        fontSize: 13, 
         color: '#FFF', 
         fontWeight: 'bold'
     },

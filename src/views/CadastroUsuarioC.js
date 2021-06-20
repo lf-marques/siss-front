@@ -75,10 +75,10 @@ export default props => {
                 <Input
                     style={styles.input}
                     autoCorrect={false}
-                    placeholder='Usuário'
+                    placeholder='Usuário, ex: SisSalvandoVidas123'
                     leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                     value={usuario}
-                    onChangeText={usuario => setUsuario(usuario)}
+                    onChangeText={usuario => setUsuario(usuario.trim())}
                 />
 
                 <Input
@@ -88,7 +88,7 @@ export default props => {
                     leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#B8B8B8' }}
                     keyboardType='email-address'
                     value={email}
-                    onChangeText={email => setEmail(email)}
+                    onChangeText={email => setEmail(email.trim())}
                 />
 
                 <Input

@@ -129,7 +129,7 @@ export default props => {
                 <View style={styles.condicional}>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.aviso}>Atualizar Doenças</Text>
-                        <Text style={styles.subAviso}>Informe se possui ou não alguma doença.</Text>
+                        <Text style={styles.subAviso}>Informe se possui alguma doença.</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity
@@ -168,7 +168,7 @@ export default props => {
                 <View style={styles.condicional}>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={styles.aviso}>Atualizar Alergias</Text>
-                        <Text style={styles.subAviso}>Informe se possui ou não alguma alergia.</Text>
+                        <Text style={styles.subAviso}>Informe se possui alguma alergia.</Text>
                     </View>
                     <View style={{ alignItems: 'center' }}>
                         <TouchableOpacity

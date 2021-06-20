@@ -9,8 +9,8 @@ import { BackHandler } from 'react-native';
 
 
 export default props => {
-    const [searchBy, setSearchBy] = useState('CPF');
-    const [searchValue, setSearchValue] = useState('12617587908');
+    const [searchBy, setSearchBy] = useState(null);
+    const [searchValue, setSearchValue] = useState(null);
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', validateToken);
@@ -36,11 +36,11 @@ export default props => {
     }
 
     const buscar = () => {
-        if (searchValue && searchValue != '') {
+        if (searchBy && searchBy != '' && searchValue && searchValue != '') {
             let request = {searchParams: {key: searchBy, value: searchValue}}
             props.navigation.navigate("ListaBuscaDocumento", request)
         }else {
-            Alert.alert('Preencha o campo')
+            Alert.alert('Selecione o tipo de busca e preencha o campo')
         }
     }
 
@@ -107,7 +107,7 @@ export default props => {
                             mask: 
                             searchBy == 'CPF' ? '999.999.999-99' : 
                             (searchBy == 'RG' ? '99.999.999-9' : 
-                            (searchBy == 'Placa' ? '********' : null))
+                            (searchBy == 'Placa' ? '********' : '*'))
                         }}
                         value={searchValue}
                         onChangeText={searchValue => setSearchValue(searchValue)}
