@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator, TextInput } from 'react-native'
+import { View, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator, TextInput, ScrollView } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
 import RNPickerSelect from 'react-native-picker-select';
 import PFAbstract from '../../services/pessoaFisica/Abstract'
@@ -123,164 +123,166 @@ export default props => {
     }
     
     return (
-        <KeyboardAvoidingView style={styles.background}>
-            {init()}
-            <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
-                    Edite suas informações.
-                </Text>
-            </View>
-
-            <View style={styles.form}>
-                <Text>Nome Completo</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#999999"
-                    autoCorrect={false}
-                    placeholder='Nome Completo'
-                    value={nomeCompleto}
-                    onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
-                />
-
-                <Text>CPF</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholderTextColor="#999999"
-                        placeholder="CPF"
-                        type={'cpf'}
-                        value={cpf}
-                        onChangeText={cpf => setCpf(cpf)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
+        <ScrollView>
+            
+            <KeyboardAvoidingView style={styles.background}>
+                {init()}
+                <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
+                        Edite suas informações.
+                    </Text>
                 </View>
 
-                <Text>RG</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
+                <View style={styles.form}>
+                    <Text>Nome Completo</Text>
+                    <TextInput
+                        style={styles.input}
                         placeholderTextColor="#999999"
-                        placeholder="RG"
-                        type={'custom'}
-                        options={{mask: '99.999.999-9'}}
-                        value={rg}
-                        onChangeText={rg => setRg(rg)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
+                        autoCorrect={false}
+                        placeholder='Nome Completo'
+                        value={nomeCompleto}
+                        onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
                     />
-                </View>
 
-                <Text>Data de Nascimento</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholderTextColor="#999999"
-                        placeholder="Data de Nascimento"
-                        type={'datetime'}
-                        options={{ format: 'DD/MM/YYYY' }}
-                        value={dataNascimento}
-                        onChangeText={dataNascimento => setDataNascimento(dataNascimento)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
-                </View>
-
-                <Text>Telefone</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholderTextColor="#999999"
-                        placeholder="Telefone"
-                        type={'custom'}
-                        options={{mask: '(99) 9999-9999'}}
-                        value={telefone}
-                        onChangeText={telefone => setTelefone(telefone)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
-                </View>
-
-                <Text>Celular</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholderTextColor="#999999"
-                        placeholder="Celular"
-                        type={'cel-phone'}
-                        options={{
-                            maskType: 'BRL',
-                            withDDD: true,
-                            dddMask: '(99) '
-                        }}
-                        value={celular}
-                        onChangeText={celular => setCelular(celular)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
-                </View>
-
-                <Text>Tipo Sanguíneo</Text>
-                <RNPickerSelect
-                    value={tipoSanguineo}
-                    style={pickerStyle}
-                    placeholder={{
-                        label: 'Selecione...',
-                        value: null,
-                    }}
-                    onValueChange={tipoSanguineo => setTipoSanguineo(tipoSanguineo)}
-                    items={[
-                        { label: 'A+ ', value: 'A+' },
-                        { label: 'A- ', value: 'A-' },
-                        { label: 'B+ ', value: 'B+' },
-                        { label: 'B- ', value: 'B-' },
-                        { label: 'AB+ ', value: 'AB+' },
-                        { label: 'AB- ', value: 'AB-' },
-                        { label: 'O+ ', value: 'O+' },
-                        { label: 'O- ', value: 'O-' },
-                        { label: 'Não sei informar ', value: 'NI' },
-                    ]}
-                />
-
-                <Text>Convênio Médico</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#999999"
-                    autoCorrect={false}
-                    placeholder='Convênio Médico'
-                    value={convenioMedico}
-                    onChangeText={convenioMedico => setConvenioMedico(convenioMedico)}
-                />
-
-                {!visibleLoader &&
-                    <View style={styles.buttonsContainer}>
-                        <TouchableOpacity
-                            style={styles.btnSubmit}
-                            onPress={() => { salvar() }}
-                        >
-                            <Text style={styles.submitText}>
-                                Editar
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.btnAlterarSenha}
-                            onPress={() => { 
-                                props.navigation.navigate("SenhaAlterar") 
-                            }}
-                            >
-                            <Text style={styles.alterarSenhaText}>
-                                Alterar Senha
-                            </Text>
-                        </TouchableOpacity>
+                    <Text>CPF</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="CPF"
+                            type={'cpf'}
+                            value={cpf}
+                            onChangeText={cpf => setCpf(cpf)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
                     </View>
-                }
-                { visibleLoader &&
-                    <ActivityIndicator size="large" color="#e0000a" />
-                }
-            </View>
-        </KeyboardAvoidingView>
 
+                    <Text>RG</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="RG"
+                            type={'custom'}
+                            options={{mask: '99.999.999-9'}}
+                            value={rg}
+                            onChangeText={rg => setRg(rg)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <Text>Data de Nascimento</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="Data de Nascimento"
+                            type={'datetime'}
+                            options={{ format: 'DD/MM/YYYY' }}
+                            value={dataNascimento}
+                            onChangeText={dataNascimento => setDataNascimento(dataNascimento)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <Text>Telefone</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="Telefone"
+                            type={'custom'}
+                            options={{mask: '(99) 9999-9999'}}
+                            value={telefone}
+                            onChangeText={telefone => setTelefone(telefone)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <Text>Celular</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="Celular"
+                            type={'cel-phone'}
+                            options={{
+                                maskType: 'BRL',
+                                withDDD: true,
+                                dddMask: '(99) '
+                            }}
+                            value={celular}
+                            onChangeText={celular => setCelular(celular)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <Text>Tipo Sanguíneo</Text>
+                    <RNPickerSelect
+                        value={tipoSanguineo}
+                        style={pickerStyle}
+                        placeholder={{
+                            label: 'Selecione...',
+                            value: null,
+                        }}
+                        onValueChange={tipoSanguineo => setTipoSanguineo(tipoSanguineo)}
+                        items={[
+                            { label: 'A+ ', value: 'A+' },
+                            { label: 'A- ', value: 'A-' },
+                            { label: 'B+ ', value: 'B+' },
+                            { label: 'B- ', value: 'B-' },
+                            { label: 'AB+ ', value: 'AB+' },
+                            { label: 'AB- ', value: 'AB-' },
+                            { label: 'O+ ', value: 'O+' },
+                            { label: 'O- ', value: 'O-' },
+                            { label: 'Não sei informar ', value: 'NI' },
+                        ]}
+                    />
+
+                    <Text>Convênio Médico</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholderTextColor="#999999"
+                        autoCorrect={false}
+                        placeholder='Convênio Médico'
+                        value={convenioMedico}
+                        onChangeText={convenioMedico => setConvenioMedico(convenioMedico)}
+                    />
+
+                    {!visibleLoader &&
+                        <View style={styles.buttonsContainer}>
+                            <TouchableOpacity
+                                style={styles.btnSubmit}
+                                onPress={() => { salvar() }}
+                            >
+                                <Text style={styles.submitText}>
+                                    Editar
+                                </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={styles.btnAlterarSenha}
+                                onPress={() => { 
+                                    props.navigation.navigate("SenhaAlterar") 
+                                }}
+                                >
+                                <Text style={styles.alterarSenhaText}>
+                                    Alterar Senha
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
+                    { visibleLoader &&
+                        <ActivityIndicator size="large" color="#e0000a" />
+                    }
+                </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 

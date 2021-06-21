@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Image, Alert, ScrollView } from 'react-native'
 import { Button, Icon } from 'react-native-elements'
 import PessoaFisicaAbstract from '../services/pessoaFisica/Abstract'
 import OauthToken from '../services/oauthToken/Token'
@@ -204,57 +204,60 @@ export default props => {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.background}>
-            <View style={{ backgroundColor: '#AD0E3D', alignItems: 'center', flexDirection: 'row', borderBottomRightRadius: 20 }}>
-                <Button
-                    onPress={() => {
-                        props.navigation.openDrawer()
-                    }}
-                    type='clear'
-                    icon={<Icon name="menu" size={25} color="white" />}
-                />
-                <Text style={{ fontSize: 20, color: '#FFF' }}>Menu</Text>
-            </View>
-            <View style={styles.containerLogo}>
-                <Image
-                    style={{
-                        width: 330,
-                        height: 127
-                    }}
-                    source={require('../assets/LogoSis.png')}
-                />
-            </View>
-            <View style={{ flex: .5, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 30, color: '#AD0E3D', fontWeight: 'bold' }}>Bem vindo ao S.I.S</Text>
-            </View>
+        <ScrollView>
 
-            <View style={{flexDirection: 'row', backgroundColor: '#890b30'}}>
-                <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-end'}}>    
-                    <TouchableOpacity
-                        onPress={() => { init(true) }}
-                        type="reload"
-                    >
-                        <Text style={styles.btnHeader}>Atualizar Tela</Text>
-                    </TouchableOpacity>
+            <KeyboardAvoidingView style={styles.background}>
+                <View style={{ backgroundColor: '#AD0E3D', alignItems: 'center', flexDirection: 'row', borderBottomRightRadius: 20 }}>
+                    <Button
+                        onPress={() => {
+                            props.navigation.openDrawer()
+                        }}
+                        type='clear'
+                        icon={<Icon name="menu" size={25} color="white" />}
+                    />
+                    <Text style={{ fontSize: 20, color: '#FFF' }}>Menu</Text>
                 </View>
-                <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-start' }}>    
-                    <TouchableOpacity
-                        onPress={() => { sair() }}
-                        type="exit"
-                    >
-                        <Text style={styles.btnHeader}>Encerrar Sessão</Text>
-                    </TouchableOpacity>
+                <View style={styles.containerLogo}>
+                    <Image
+                        style={{
+                            width: 330,
+                            height: 127
+                        }}
+                        source={require('../assets/LogoSis.png')}
+                    />
                 </View>
-            </View>
-            
-            <View style={{ backgroundColor: '#FFF' }}>
-                {init()}
-                {CadVeiculo()}
-                {CadContato()}
-                {CadAlergia()}
-                {CadDoenca()}
-            </View>
-        </KeyboardAvoidingView >
+                <View style={{ flex: .5, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 30, color: '#AD0E3D', fontWeight: 'bold' }}>Bem vindo ao S.I.S</Text>
+                </View>
+
+                <View style={{flexDirection: 'row', backgroundColor: '#890b30'}}>
+                    <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-end'}}>    
+                        <TouchableOpacity
+                            onPress={() => { init(true) }}
+                            type="reload"
+                        >
+                            <Text style={styles.btnHeader}>Atualizar Tela</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-start' }}>    
+                        <TouchableOpacity
+                            onPress={() => { sair() }}
+                            type="exit"
+                        >
+                            <Text style={styles.btnHeader}>Encerrar Sessão</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                
+                <View style={{ backgroundColor: '#FFF' }}>
+                    {init()}
+                    {CadVeiculo()}
+                    {CadContato()}
+                    {CadAlergia()}
+                    {CadDoenca()}
+                </View>
+            </KeyboardAvoidingView >
+        </ScrollView>
     )
 }
 const styles = StyleSheet.create({

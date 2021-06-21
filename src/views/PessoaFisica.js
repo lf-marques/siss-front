@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'
+import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'
 import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
@@ -80,106 +80,108 @@ export default props => {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.background}>
-            <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
-                    Insira suas informações.
-                </Text>
-            </View>
-
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Nome Completo'
-                    placeholderTextColor="#999999"
-                    value={nomeCompleto}
-                    onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
-                />
-
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholder="CPF"
-                        placeholderTextColor="#999999"
-                        type={'cpf'}
-                        value={cpf}
-                        onChangeText={cpf => setCpf(cpf)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
+        <ScrollView>
+            
+            <KeyboardAvoidingView style={styles.background}>
+                <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
+                        Insira suas informações.
+                    </Text>
                 </View>
 
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholder="RG"
+                    <Input
+                        style={styles.input}
+                        autoCorrect={false}
+                        placeholder='Nome Completo'
                         placeholderTextColor="#999999"
-                        type={'custom'}
-                        options={{mask: '99.999.999-9'}}
-                        value={rg}
-                        onChangeText={rg => setRg(rg)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
+                        value={nomeCompleto}
+                        onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
                     />
-                </View>
 
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholder="Data de Nascimento"
-                        placeholderTextColor="#999999"
-                        type={'datetime'}
-                        options={{ format: 'DD/MM/YYYY' }}
-                        value={dataNascimento}
-                        onChangeText={dataNascimento => setDataNascimento(dataNascimento)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
-                </View>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholder="CPF"
+                            placeholderTextColor="#999999"
+                            type={'cpf'}
+                            value={cpf}
+                            onChangeText={cpf => setCpf(cpf)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
 
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholder="Telefone"
-                        placeholderTextColor="#999999"
-                        type={'custom'}
-                        options={{mask: '(99) 9999-9999'}}
-                        value={telefone}
-                        onChangeText={telefone => setTelefone(telefone)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
-                </View>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholder="RG"
+                            placeholderTextColor="#999999"
+                            type={'custom'}
+                            options={{mask: '99.999.999-9'}}
+                            value={rg}
+                            onChangeText={rg => setRg(rg)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
 
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholder="Celular"
-                        placeholderTextColor="#999999"
-                        type={'cel-phone'}
-                        options={{
-                            maskType: 'BRL',
-                            withDDD: true,
-                            dddMask: '(99) '
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholder="Data de Nascimento"
+                            placeholderTextColor="#999999"
+                            type={'datetime'}
+                            options={{ format: 'DD/MM/YYYY' }}
+                            value={dataNascimento}
+                            onChangeText={dataNascimento => setDataNascimento(dataNascimento)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholder="Telefone"
+                            placeholderTextColor="#999999"
+                            type={'custom'}
+                            options={{mask: '(99) 9999-9999'}}
+                            value={telefone}
+                            onChangeText={telefone => setTelefone(telefone)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholder="Celular"
+                            placeholderTextColor="#999999"
+                            type={'cel-phone'}
+                            options={{
+                                maskType: 'BRL',
+                                withDDD: true,
+                                dddMask: '(99) '
+                            }}
+                            value={celular}
+                            onChangeText={celular => setCelular(celular)}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => {
+                            proximaPagina()
                         }}
-                        value={celular}
-                        onChangeText={celular => setCelular(celular)}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
-                    />
-                </View>
-
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => {
-                        proximaPagina()
-                    }}
-                >
-                    <Text style={styles.submitText}
-                    >Próximo</Text>
-                </TouchableOpacity>
-        </KeyboardAvoidingView>
-
+                    >
+                        <Text style={styles.submitText}
+                        >Próximo</Text>
+                    </TouchableOpacity>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 

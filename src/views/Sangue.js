@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'
 import { RadioButton } from 'react-native-paper'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
@@ -77,133 +77,136 @@ export default props => {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.background}>
-            <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
-                    Qual seu tipo sanguineo?
-                    </Text>
-            </View>
-            <View style={{ padding: 15 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="A+"
-                        status={checked === 'A+' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('A+')}
-                    />
-                    <Text style={{ fontSize: 15 }}>A Positivo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="A-"
-                        status={checked === 'A-' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('A-')}
-                    />
-                    <Text style={{ fontSize: 15 }}>A Negativo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="B+"
-                        status={checked === 'B+' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('B+')}
-                    />
-                    <Text style={{ fontSize: 15 }}>B Positivo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="B-"
-                        status={checked === 'B-' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('B-')}
-                    />
-                    <Text style={{ fontSize: 15 }}>B Negativo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="AB+"
-                        status={checked === 'AB+' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('AB+')}
-                    />
-                    <Text style={{ fontSize: 15 }}>AB Positivo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="AB-"
-                        status={checked === 'AB-' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('AB-')}
-                    />
-                    <Text style={{ fontSize: 15 }}>AB Negativo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="O+"
-                        status={checked === 'O+' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('O+')}
-                    />
-                    <Text style={{ fontSize: 15 }}>O Positivo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="O-"
-                        status={checked === 'O-' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('O-')}
-                    />
-                    <Text style={{ fontSize: 15 }}>O Negativo</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="NI"
-                        status={checked === 'NI' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked('NI')}
-                    />
-                    <Text style={{ fontSize: 15 }}>Não sei informar</Text>
-                </View>
+        <ScrollView>
 
-            </View>
-            <View style={{ marginTop: 15, backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
-                    Possui Convenio Médico?
-                    </Text>
-            </View>
-            <View style={{ padding: 15 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="sim"
-                        status={checked2 === 'sim' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked2('sim')}
-                    />
-                    <Text style={{ fontSize: 15 }}>Sim</Text>
+            <KeyboardAvoidingView style={styles.background}>
+                <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
+                        Qual seu tipo sanguineo?
+                        </Text>
+                </View>
+                <View style={{ padding: 15 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="A+"
+                            status={checked === 'A+' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('A+')}
+                        />
+                        <Text style={{ fontSize: 15 }}>A Positivo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="A-"
+                            status={checked === 'A-' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('A-')}
+                        />
+                        <Text style={{ fontSize: 15 }}>A Negativo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="B+"
+                            status={checked === 'B+' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('B+')}
+                        />
+                        <Text style={{ fontSize: 15 }}>B Positivo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="B-"
+                            status={checked === 'B-' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('B-')}
+                        />
+                        <Text style={{ fontSize: 15 }}>B Negativo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="AB+"
+                            status={checked === 'AB+' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('AB+')}
+                        />
+                        <Text style={{ fontSize: 15 }}>AB Positivo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="AB-"
+                            status={checked === 'AB-' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('AB-')}
+                        />
+                        <Text style={{ fontSize: 15 }}>AB Negativo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="O+"
+                            status={checked === 'O+' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('O+')}
+                        />
+                        <Text style={{ fontSize: 15 }}>O Positivo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="O-"
+                            status={checked === 'O-' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('O-')}
+                        />
+                        <Text style={{ fontSize: 15 }}>O Negativo</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="NI"
+                            status={checked === 'NI' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked('NI')}
+                        />
+                        <Text style={{ fontSize: 15 }}>Não sei informar</Text>
+                    </View>
 
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <RadioButton
-                        value="nao"
-                        status={checked2 === 'nao' ? 'checked' : 'unchecked'}
-                        onPress={() => setChecked2('nao')}
-                    />
-                    <Text style={{ fontSize: 15 }}>Não</Text>
+                <View style={{ marginTop: 15, backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
+                        Possui Convenio Médico?
+                        </Text>
+                </View>
+                <View style={{ padding: 15 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="sim"
+                            status={checked2 === 'sim' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked2('sim')}
+                        />
+                        <Text style={{ fontSize: 15 }}>Sim</Text>
+
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <RadioButton
+                            value="nao"
+                            status={checked2 === 'nao' ? 'checked' : 'unchecked'}
+                            onPress={() => setChecked2('nao')}
+                        />
+                        <Text style={{ fontSize: 15 }}>Não</Text>
+
+                    </View>
+                    {mostrar(checked2)}
+                </View>
+                <View>
 
                 </View>
-                {mostrar(checked2)}
-            </View>
-            <View>
-
-            </View>
-            {!visibleLoader &&
-                <View style={{ marginTop: 15, alignItems: 'center' }}>
-                    <TouchableOpacity
-                        style={styles.btnSubmit}
-                        onPress={() => {
-                            {cadastrar()}
-                        }}
-                    >
-                        <Text style={styles.submitText}
-                        >Salvar</Text>
-                    </TouchableOpacity>
-                </View>
-            }
-            { visibleLoader &&
-                <ActivityIndicator size="large" color="#e0000a" />
-            }
-        </KeyboardAvoidingView >
+                {!visibleLoader &&
+                    <View style={{ marginTop: 15, alignItems: 'center' }}>
+                        <TouchableOpacity
+                            style={styles.btnSubmit}
+                            onPress={() => {
+                                {cadastrar()}
+                            }}
+                        >
+                            <Text style={styles.submitText}
+                            >Salvar</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+                { visibleLoader &&
+                    <ActivityIndicator size="large" color="#e0000a" />
+                }
+            </KeyboardAvoidingView >
+        </ScrollView>
     )
 }
 

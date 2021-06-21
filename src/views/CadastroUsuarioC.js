@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Input } from 'react-native-elements'   
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
@@ -65,63 +65,65 @@ export default props => {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.background}>
-            <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
-                    Insira suas informações.
-                </Text>
-            </View>
+        <ScrollView>
 
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Usuário, ex: SisSalvandoVidas123'
-                    leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
-                    value={usuario}
-                    onChangeText={usuario => setUsuario(usuario.trim())}
-                />
+            <KeyboardAvoidingView style={styles.background}>
+                <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>
+                        Insira suas informações.
+                    </Text>
+                </View>
 
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='E-mail'
-                    leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#B8B8B8' }}
-                    keyboardType='email-address'
-                    value={email}
-                    onChangeText={email => setEmail(email.trim())}
-                />
+                    <Input
+                        style={styles.input}
+                        autoCorrect={false}
+                        placeholder='Usuário, ex: SisSalvandoVidas123'
+                        leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
+                        value={usuario}
+                        onChangeText={usuario => setUsuario(usuario.trim())}
+                    />
 
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Senha'
-                    leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
-                    secureTextEntry={true}
-                    value={senha}
-                    onChangeText={senha => setSenha(senha)}
-                />
+                    <Input
+                        style={styles.input}
+                        autoCorrect={false}
+                        placeholder='E-mail'
+                        leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#B8B8B8' }}
+                        keyboardType='email-address'
+                        value={email}
+                        onChangeText={email => setEmail(email.trim())}
+                    />
 
-                <Input
-                    style={styles.input}
-                    autoCorrect={false}
-                    placeholder='Confirmar Senha'
-                    leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
-                    secureTextEntry={true}
-                    value={senhaConfirmacao}
-                    onChangeText={senhaConfirmacao => setSenhaConfirmacao(senhaConfirmacao)}
-                />
-                
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => {
-                        proximaPagina()
-                    }}
-                >
-                    <Text style={styles.submitText}
-                    >Próximo</Text>
-                </TouchableOpacity>
-        </KeyboardAvoidingView>
+                    <Input
+                        style={styles.input}
+                        autoCorrect={false}
+                        placeholder='Senha'
+                        leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
+                        secureTextEntry={true}
+                        value={senha}
+                        onChangeText={senha => setSenha(senha)}
+                    />
 
+                    <Input
+                        style={styles.input}
+                        autoCorrect={false}
+                        placeholder='Confirmar Senha'
+                        leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
+                        secureTextEntry={true}
+                        value={senhaConfirmacao}
+                        onChangeText={senhaConfirmacao => setSenhaConfirmacao(senhaConfirmacao)}
+                    />
+                    
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => {
+                            proximaPagina()
+                        }}
+                    >
+                        <Text style={styles.submitText}
+                        >Próximo</Text>
+                    </TouchableOpacity>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 
