@@ -1,4 +1,4 @@
-package com.navigation;
+package com.sis;
 
 import com.facebook.react.ReactActivity;
 
