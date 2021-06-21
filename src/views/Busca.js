@@ -112,7 +112,7 @@ export default props => {
                         }}
                         value={searchValue}
                         onChangeText={searchValue => setSearchValue(searchValue)}
-                        keyboardType="number-pad"
+                        keyboardType={searchBy != "Placa" ? "number-pad" : "default"}
                         returnKeyType="done"
                         style={styles.maskedInput}
                     />
