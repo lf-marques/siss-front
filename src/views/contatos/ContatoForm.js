@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert } from 'react-native'
+import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert, ScrollView } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import RNPickerSelect from 'react-native-picker-select';
@@ -26,81 +26,83 @@ export default ({ route, navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView style={styles.background}>
-            <View style={styles.form}>
-                <Text>Nome</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor="#999999"
-                    onChangeText={nome => setContato({ ...contato, nome })}
-                    placeholder='Informe o nome do Contato'
-                    value={contato.nome}
-                />
-                <Text>Parentesco</Text>
-                <RNPickerSelect
-                    value={contato.parentesco}
-                    style={pickerStyle}
-                    placeholder={{
-                        label: 'Selecione...',
-                        value: null,
-                    }}
-                    onValueChange={parentesco => setContato({ ...contato, parentesco })}
-                    items={[
-                        { label: 'Pai', value: 'pai' },
-                        { label: 'Mãe', value: 'mãe' },
-                        { label: 'Irmão(a)', value: 'irmão(a)' },
-                        { label: 'Tio(a)', value: 'tio(a)' },
-                        { label: 'Avô(a)', value: 'avô(a)' },
-                        { label: 'Primo(a)', value: 'primo(a)' },
-                        { label: 'Amigo(a)', value: 'amigo(a)' },
-                        { label: 'Namorado(a)', value: 'namorado(a)' },
-                        { label: 'Esposo(a)', value: 'esposo(a)' },
-                        { label: 'Outros', value: 'outros' },
-                    ]}
-                />
-                <Text>Telefone</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
+        <ScrollView>
+            <KeyboardAvoidingView style={styles.background}>
+                <View style={styles.form}>
+                    <Text>Nome</Text>
+                    <TextInput
+                        style={styles.input}
                         placeholderTextColor="#999999"
-                        placeholder="Telefone"
-                        type={'custom'}
-                        options={{mask: '(99) 9999-9999'}}
-                        value={contato.telefone}
-                        onChangeText={telefone => setContato({ ...contato, telefone})}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
+                        onChangeText={nome => setContato({ ...contato, nome })}
+                        placeholder='Informe o nome do Contato'
+                        value={contato.nome}
                     />
-                </View>
-                <Text>Celular</Text>
-                <View style={styles.containerMask}>
-                    <TextInputMask
-                        placeholderTextColor="#999999"
-                        placeholder="Celular"
-                        type={'cel-phone'}
-                        options={{
-                            maskType: 'BRL',
-                            withDDD: true,
-                            dddMask: '(99) '
+                    <Text>Parentesco</Text>
+                    <RNPickerSelect
+                        value={contato.parentesco}
+                        style={pickerStyle}
+                        placeholder={{
+                            label: 'Selecione...',
+                            value: null,
                         }}
-                        value={contato.celular}
-                        onChangeText={celular => setContato({...contato, celular})}
-                        keyboardType="number-pad"
-                        returnKeyType="done"
-                        style={styles.maskedInput}
+                        onValueChange={parentesco => setContato({ ...contato, parentesco })}
+                        items={[
+                            { label: 'Pai', value: 'pai' },
+                            { label: 'Mãe', value: 'mãe' },
+                            { label: 'Irmão(a)', value: 'irmão(a)' },
+                            { label: 'Tio(a)', value: 'tio(a)' },
+                            { label: 'Avô(a)', value: 'avô(a)' },
+                            { label: 'Primo(a)', value: 'primo(a)' },
+                            { label: 'Amigo(a)', value: 'amigo(a)' },
+                            { label: 'Namorado(a)', value: 'namorado(a)' },
+                            { label: 'Esposo(a)', value: 'esposo(a)' },
+                            { label: 'Outros', value: 'outros' },
+                        ]}
                     />
-                </View>
+                    <Text>Telefone</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="Telefone"
+                            type={'custom'}
+                            options={{mask: '(99) 9999-9999'}}
+                            value={contato.telefone}
+                            onChangeText={telefone => setContato({ ...contato, telefone})}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
+                    <Text>Celular</Text>
+                    <View style={styles.containerMask}>
+                        <TextInputMask
+                            placeholderTextColor="#999999"
+                            placeholder="Celular"
+                            type={'cel-phone'}
+                            options={{
+                                maskType: 'BRL',
+                                withDDD: true,
+                                dddMask: '(99) '
+                            }}
+                            value={contato.celular}
+                            onChangeText={celular => setContato({...contato, celular})}
+                            keyboardType="number-pad"
+                            returnKeyType="done"
+                            style={styles.maskedInput}
+                        />
+                    </View>
 
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => {salvar()}}
-                >
-                    <Text style={styles.submitText}>
-                        {contato.id ? 'Editar' : 'Cadastrar'}
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        </KeyboardAvoidingView>
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => {salvar()}}
+                    >
+                        <Text style={styles.submitText}>
+                            {contato.id ? 'Editar' : 'Cadastrar'}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 

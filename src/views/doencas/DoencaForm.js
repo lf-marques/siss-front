@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Alert } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from "react-native";
 import { CheckBox } from "react-native-elements";
 import Doenca from '../../services/condicaoClinica/doencas/Index';
 
@@ -37,53 +37,56 @@ export default ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={{ alignItems: 'center', fontSize: 20, padding: 20 }}>
-                Possui alguma dessas doenças?
-            </Text>
+        <ScrollView>
 
-            <CheckBox
-                style={styles.checkBox}
-                title='Diabetes'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkDiabetes}
-                onPress={() => setCheckDiabetes(!checkDiabetes)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Hipertensão'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkHipertensao}
-                onPress={() => setCheckHipertensao(!checkHipertensao)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Asma'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkAsma}
-                onPress={() => setCheckAsma(!checkAsma)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Não possuo'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkNaoPossuo}
-                onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
-            />
-            <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => {salvar()}}
-                ><Text style={styles.submitText} >
-                    Salvar
+            <View style={styles.container}>
+                <Text style={{ alignItems: 'center', fontSize: 20, padding: 20 }}>
+                    Possui alguma dessas doenças?
                 </Text>
-                </TouchableOpacity>
+
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Diabetes'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkDiabetes}
+                    onPress={() => setCheckDiabetes(!checkDiabetes)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Hipertensão'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkHipertensao}
+                    onPress={() => setCheckHipertensao(!checkHipertensao)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Asma'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkAsma}
+                    onPress={() => setCheckAsma(!checkAsma)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Não possuo'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkNaoPossuo}
+                    onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
+                />
+                <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => {salvar()}}
+                    ><Text style={styles.submitText} >
+                        Salvar
+                    </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 

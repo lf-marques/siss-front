@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Alert } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from "react-native";
 import { CheckBox } from "react-native-elements";
 import Alergia from '../../services/condicaoClinica/alergias/Index'
 
@@ -61,86 +61,88 @@ export default ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={{ alignItems: 'center', fontSize: 20, padding: 20 }}>
-                Possui alergia a algum desses itens?
-            </Text>
+        <ScrollView>
+            <View style={styles.container}>
+                <Text style={{ alignItems: 'center', fontSize: 20, padding: 20 }}>
+                    Possui alergia a algum desses itens?
+                </Text>
 
-            <CheckBox
-                style={styles.checkBox}
-                title='Antibióticos'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkAntibioticos}
-                onPress={() => setCheckAntibioticos(!checkAntibioticos)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Anticonvulsivantes'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkAnticonvulsivantes}
-                onPress={() => setCheckAnticonvulsivantes(!checkAnticonvulsivantes)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Insulina'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkInsulina}
-                onPress={() => setCheckInsulina(!checkInsulina)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Contraste De Iodo'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkContrasteDeIodo}
-                onPress={() => setCheckContrasteDeIodo(!checkContrasteDeIodo)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Aspirina'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkAspirina}
-                onPress={() => setCheckAspirina(!checkAspirina)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Anti Inflamatórios'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkAntiInflamatorios}
-                onPress={() => setCheckAntiInflamatorios(!checkAntiInflamatorios)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Relaxantes Musculares'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkRelaxantesMusculares}
-                onPress={() => setCheckRelaxantesMusculares(!checkRelaxantesMusculares)}
-            />
-            <CheckBox
-                style={styles.checkBox}
-                title='Não possuo'
-                checkedIcon='check'
-                uncheckedIcon='square-o'
-                checked={checkNaoPossuo}
-                onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
-            />
-            <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => {salvar()}}
-                >
-                    <Text style={styles.submitText}
-                        >Salvar
-                    </Text>
-                </TouchableOpacity>
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Antibióticos'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkAntibioticos}
+                    onPress={() => setCheckAntibioticos(!checkAntibioticos)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Anticonvulsivantes'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkAnticonvulsivantes}
+                    onPress={() => setCheckAnticonvulsivantes(!checkAnticonvulsivantes)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Insulina'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkInsulina}
+                    onPress={() => setCheckInsulina(!checkInsulina)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Contraste De Iodo'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkContrasteDeIodo}
+                    onPress={() => setCheckContrasteDeIodo(!checkContrasteDeIodo)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Aspirina'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkAspirina}
+                    onPress={() => setCheckAspirina(!checkAspirina)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Anti Inflamatórios'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkAntiInflamatorios}
+                    onPress={() => setCheckAntiInflamatorios(!checkAntiInflamatorios)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Relaxantes Musculares'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkRelaxantesMusculares}
+                    onPress={() => setCheckRelaxantesMusculares(!checkRelaxantesMusculares)}
+                />
+                <CheckBox
+                    style={styles.checkBox}
+                    title='Não possuo'
+                    checkedIcon='check'
+                    uncheckedIcon='square-o'
+                    checked={checkNaoPossuo}
+                    onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
+                />
+                <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => {salvar()}}
+                    >
+                        <Text style={styles.submitText}
+                            >Salvar
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
