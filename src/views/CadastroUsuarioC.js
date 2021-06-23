@@ -6,6 +6,7 @@ import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
+import Helper from '../services/Helper'
 
 export default props => {
 
@@ -56,6 +57,9 @@ export default props => {
         }else if(senha != senhaConfirmacao) {
             valid = false
             message = 'Senhas diferentes, por favor verifique'
+        }else if(!Helper.isEmailValid(email)) {
+            valid = false
+            message = 'Informe um e-mail válido'
         }
 
         if(!valid) {
