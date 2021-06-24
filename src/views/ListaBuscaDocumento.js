@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Alert, FlatList, ScrollView } from 'react-native'
-import { View, Text, Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Character } from 'react-native'
-import { Button, Input, Icon, ListItem } from 'react-native-elements'
+import { View, Text, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from 'react-native'
+import { ListItem } from 'react-native-elements'
 import PFAbstract from '../services/pessoaFisica/Abstract'
 import {Collapse,CollapseHeader, CollapseBody} from 'accordion-collapse-react-native';
 import Helper from '../services/Helper'

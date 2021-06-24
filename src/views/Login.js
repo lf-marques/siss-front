@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { View, TextInput, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TextInput, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'
 import OauthToken from '../services/oauthToken/Token'
 
@@ -10,12 +10,14 @@ export default props => {
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
     const [login, setLogin] = useState(null)
     const [senha, setSenha] = useState(null)
+    const [visibleLoader, setVisibleLoader] = useState(false)
 
     const entrar = () => {
         if(login &&  login != '' && senha && senha !=''){
-            
+            setVisibleLoader(true)
             //Obtem o token de acesso de API com base nos dados de login
             OauthToken.login(login, senha).then((response => {
+                setVisibleLoader(false)
                 if(response['success']) {
                     Alert.alert('Logado com sucesso')
                     redirectByType(response.tokenData.executante)                
@@ -139,13 +141,18 @@ export default props => {
                     value={senha}
                 />
 
-                <TouchableOpacity
-                    style={styles.btnSubmit}
-                    onPress={() => { entrar({ login, senha }) }}
-                >
-                    <Text style={styles.submitText}
-                    >Acessar</Text>
-                </TouchableOpacity>
+                {!visibleLoader &&
+                    <TouchableOpacity
+                        style={styles.btnSubmit}
+                        onPress={() => { entrar({ login, senha }) }}
+                    >
+                        <Text style={styles.submitText}
+                        >Acessar</Text>
+                    </TouchableOpacity>
+                }
+                { visibleLoader &&
+                    <ActivityIndicator size="large" color="#e0000a" />
+                }
 
                 <TouchableOpacity style={styles.btnRegister}>
                     <Text style={styles.registerText}

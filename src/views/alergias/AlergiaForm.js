@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity, Alert, ScrollView, ActivityIndicator } from "react-native";
 import { CheckBox } from "react-native-elements";
 import Alergia from '../../services/condicaoClinica/alergias/Index'
 
@@ -13,6 +13,7 @@ export default ({ navigation }) => {
     const [checkAntiInflamatorios, setCheckAntiInflamatorios] = useState(false);
     const [checkRelaxantesMusculares, setCheckRelaxantesMusculares] = useState(false);
     const [checkNaoPossuo, setCheckNaoPossuo] = useState(false);
+    const [visibleLoader, setVisibleLoader] = useState(false)
 
     const salvar = () => {
         if(checkNaoPossuo) {
@@ -20,6 +21,7 @@ export default ({ navigation }) => {
             return true   
         }
         if(validarSelecionado()) {
+            setVisibleLoader(true)
             const requestData = {
                 antibioticos: checkAntibioticos,
                 anticonvulsivantes: checkAnticonvulsivantes,
@@ -31,6 +33,7 @@ export default ({ navigation }) => {
             };
             
             Alergia.salvarLista(requestData).then((response => {
+                setVisibleLoader(false)
                 if(response['success']) {
                     Alert.alert(response.message);
                     navigation.navigate('AlergiaList', {goBack: true})
@@ -132,14 +135,19 @@ export default ({ navigation }) => {
                     onPress={() => setCheckNaoPossuo(!checkNaoPossuo)}
                 />
                 <View style={{ flex: 1, alignItems: 'center', padding: 20 }}>
-                    <TouchableOpacity
-                        style={styles.btnSubmit}
-                        onPress={() => {salvar()}}
-                    >
-                        <Text style={styles.submitText}
-                            >Salvar
-                        </Text>
-                    </TouchableOpacity>
+                    {!visibleLoader &&
+                        <TouchableOpacity
+                            style={styles.btnSubmit}
+                            onPress={() => {salvar()}}
+                        >
+                            <Text style={styles.submitText}
+                                >Salvar
+                            </Text>
+                        </TouchableOpacity>
+                    }
+                    { visibleLoader &&
+                        <ActivityIndicator size="large" color="#e0000a" />
+                    }
                 </View>
             </View>
         </ScrollView>

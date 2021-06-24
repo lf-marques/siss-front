@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert, ScrollView, ActivityIndicator } from 'react-native'
 import Veiculo from '../../services/veiculo/Index'
 import RNPickerSelect from 'react-native-picker-select';
 
 export default ({ route, navigation }) => {
     const [veiculo, setVeiculo] = useState(route.params ? route.params : {})
+    const [visibleLoader, setVisibleLoader] = useState(false)
 
     const salvar = () => {
         if(veiculo) {
+            setVisibleLoader(true)
             Veiculo.salvar(veiculo).then((response => {
+                setVisibleLoader(false)
                 if(response['success']) {
                     Alert.alert(response.message);
                     navigation.navigate('VeiculoList', {goBack: true})
@@ -102,14 +105,19 @@ export default ({ route, navigation }) => {
                         value={veiculo.placa}
                     />
 
-                    <TouchableOpacity
-                        style={styles.btnSubmit}
-                        onPress={() => {salvar()}}
-                    >
-                        <Text style={styles.submitText}>
-                            {veiculo.id ? 'Editar' : 'Cadastrar'}
-                        </Text>
-                    </TouchableOpacity>
+                    {!visibleLoader &&
+                        <TouchableOpacity
+                            style={styles.btnSubmit}
+                            onPress={() => {salvar()}}
+                        >
+                            <Text style={styles.submitText}>
+                                {veiculo.id ? 'Editar' : 'Cadastrar'}
+                            </Text>
+                        </TouchableOpacity>
+                    }
+                    { visibleLoader &&
+                        <ActivityIndicator size="large" color="#e0000a" />
+                    }
                 </View>
             </KeyboardAvoidingView>
         </ScrollView>

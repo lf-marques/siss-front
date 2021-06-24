@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'
+import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
@@ -13,7 +13,7 @@ export default props => {
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
     const [opacity] = useState(new Animated.Value(0))
     const [logo] = useState(new Animated.ValueXY({ x: 330, y: 127 }))
-
+    const [visibleLoader, setVisibleLoader] = useState(false)
     
     const [nomeCompleto, setNomeCompleto] = useState(null)
     const [cpf, setCpf] = useState(null)
@@ -25,7 +25,9 @@ export default props => {
 
     const proximaPagina = () => {
         if (validar()) {
+            setVisibleLoader(true)
             CadastroUsuario.checkExists('n', 'n', cpf, rg).then((response) => {
+                setVisibleLoader(false)
                 if(response['error']) {
                     Alert.alert(response.message)
                 }else {
@@ -171,15 +173,20 @@ export default props => {
                         />
                     </View>
 
-                    <TouchableOpacity
-                        style={styles.btnSubmit}
-                        onPress={() => {
-                            proximaPagina()
-                        }}
-                    >
-                        <Text style={styles.submitText}
-                        >Próximo</Text>
-                    </TouchableOpacity>
+                    {!visibleLoader &&
+                        <TouchableOpacity
+                            style={styles.btnSubmit}
+                            onPress={() => {
+                                proximaPagina()
+                            }}
+                        >
+                            <Text style={styles.submitText}
+                            >Próximo</Text>
+                        </TouchableOpacity>
+                    }
+                    { visibleLoader &&
+                        <ActivityIndicator size="large" color="#e0000a" />
+                    }
             </KeyboardAvoidingView>
         </ScrollView>
     )

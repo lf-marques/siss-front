@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 import { Alert } from 'react-native'
-import { View, Text, Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Character } from 'react-native'
+import { View, Text, Image, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import { RadioButton } from 'react-native-paper'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert, ScrollView } from 'react-native'
+import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert, ScrollView, ActivityIndicator } from 'react-native'
 import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import RNPickerSelect from 'react-native-picker-select';
@@ -7,10 +7,13 @@ import Contato from '../../services/contato/Index'
 
 export default ({ route, navigation }) => {
     const [contato, setContato] = useState(route.params ? route.params : {})
+    const [visibleLoader, setVisibleLoader] = useState(false)
 
     const salvar = () => {
         if(contato) {
+            setVisibleLoader(true)
             Contato.salvar(contato).then((response => {
+                setVisibleLoader(false)
                 if(response['success']) {
                     Alert.alert(response.message);
                     navigation.navigate('ContatoList', {goBack: true})
@@ -91,15 +94,19 @@ export default ({ route, navigation }) => {
                             style={styles.maskedInput}
                         />
                     </View>
-
-                    <TouchableOpacity
-                        style={styles.btnSubmit}
-                        onPress={() => {salvar()}}
-                    >
-                        <Text style={styles.submitText}>
-                            {contato.id ? 'Editar' : 'Cadastrar'}
-                        </Text>
-                    </TouchableOpacity>
+                    {!visibleLoader &&
+                        <TouchableOpacity
+                            style={styles.btnSubmit}
+                            onPress={() => {salvar()}}
+                        >
+                            <Text style={styles.submitText}>
+                                {contato.id ? 'Editar' : 'Cadastrar'}
+                            </Text>
+                        </TouchableOpacity>
+                    }
+                    { visibleLoader &&
+                        <ActivityIndicator size="large" color="#e0000a" />
+                    }
                 </View>
             </KeyboardAvoidingView>
         </ScrollView>
