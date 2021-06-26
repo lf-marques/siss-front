@@ -14,7 +14,7 @@ const Helper = {
             }, "");
         }else {
             console.log(error)
-            msg = 'erro interno'
+            msg = 'Aplicação indisponível no momento.'
         }
         return {error: true, message: msg};
     },

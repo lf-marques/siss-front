@@ -61,8 +61,9 @@ const getResponseToken = (response) => {
     const tokenData = {
         token: 'Bearer ' + responseDados.token,
         usrId: responseDados.usuarioId,
-        executante: responseDados.executante
-    };
+        executante: responseDados.executante,
+        pfExists: responseDados.pfExists,
+    }; 
 
     saveTokenInStorage(tokenData)
     return {success: true, tokenData: tokenData}

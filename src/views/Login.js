@@ -15,16 +15,21 @@ export default props => {
     const entrar = () => {
         if(login &&  login != '' && senha && senha !=''){
             setVisibleLoader(true)
+            
             //Obtem o token de acesso de API com base nos dados de login
             OauthToken.login(login, senha).then((response => {
                 setVisibleLoader(false)
-                if(response['success']) {
+                
+                if(
+                    response['success'] && 
+                    (response.tokenData.executante == "1" || response.tokenData.pfExists == "1")
+                ) {
                     Alert.alert('Logado com sucesso')
                     redirectByType(response.tokenData.executante)                
                 }else if(response['error']) {
                     Alert.alert(response.message)
                 }else {
-                    Alert.alert('Tente novamente mais tarde.')
+                    Alert.alert('Não foi possível realizar o login')
                 }
             }))
         }else{
@@ -48,9 +53,15 @@ export default props => {
 
     useEffect(() => {
         OauthToken.getTokenStorage().then((response => {
-            if(response && response['token']) {
-                redirectByType(response.executante)
-            }
+            try {
+                if(
+                    response &&
+                    response['token'] && 
+                    response['executante'] == "1" || response['pfExists'] == "1"
+                ) {
+                    redirectByType(response.executante)
+                }
+            }catch(error){}
         }))
 
         keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow)
