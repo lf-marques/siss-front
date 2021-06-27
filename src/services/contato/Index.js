@@ -24,7 +24,7 @@ const Contato = {
                 await Api.post('api/contato',
                     {
                         id: contato.id > 0  && contato.id != null ? contato.id : null,
-                        nome: contato.nome,
+                        nome: contato.nome ? contato.nome.trim() : null,
                         parentesco: contato.parentesco,
                         telefone: contato.telefone,
                         celular: contato.celular,

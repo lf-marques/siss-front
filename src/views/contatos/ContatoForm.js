@@ -31,7 +31,7 @@ export default ({ route, navigation }) => {
         <ScrollView>
             <KeyboardAvoidingView style={styles.background}>
                 <View style={styles.form}>
-                    <Text>Nome</Text>
+                    <Text>Nome *</Text>
                     <TextInput
                         style={styles.input}
                         placeholderTextColor="#999999"
@@ -39,7 +39,7 @@ export default ({ route, navigation }) => {
                         placeholder='Informe o nome do Contato'
                         value={contato.nome}
                     />
-                    <Text>Parentesco</Text>
+                    <Text>Parentesco *</Text>
                     <RNPickerSelect
                         value={contato.parentesco}
                         style={pickerStyle}

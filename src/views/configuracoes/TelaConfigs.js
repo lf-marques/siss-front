@@ -90,7 +90,7 @@ export default props => {
         let valid = true
         let message = 'Preencha o campo '
         
-        if(!nomeCompleto) {
+        if(!nomeCompleto || !nomeCompleto.trim()) {
             valid = false
             message += '"nome"'
         }else if(!cpf) {
@@ -114,6 +114,9 @@ export default props => {
         }else if (!tipoSanguineo) {
             valid = false
             message += '"Tipo Sanguineo"'
+        }else if(convenioMedico && !convenioMedico.trim()) {
+            valid = false
+            message += '"Convenio Médico"'
         }
 
         if(!valid) {
@@ -134,7 +137,7 @@ export default props => {
                 </View>
 
                 <View style={styles.form}>
-                    <Text>Nome Completo</Text>
+                    <Text>Nome Completo *</Text>
                     <TextInput
                         style={styles.input}
                         placeholderTextColor="#999999"
@@ -144,7 +147,7 @@ export default props => {
                         onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
                     />
 
-                    <Text>CPF</Text>
+                    <Text>CPF *</Text>
                     <View style={styles.containerMask}>
                         <TextInputMask
                             placeholderTextColor="#999999"
@@ -158,7 +161,7 @@ export default props => {
                         />
                     </View>
 
-                    <Text>RG</Text>
+                    <Text>RG *</Text>
                     <View style={styles.containerMask}>
                         <TextInputMask
                             placeholderTextColor="#999999"
@@ -173,7 +176,7 @@ export default props => {
                         />
                     </View>
 
-                    <Text>Data de Nascimento</Text>
+                    <Text>Data de Nascimento *</Text>
                     <View style={styles.containerMask}>
                         <TextInputMask
                             placeholderTextColor="#999999"
@@ -222,7 +225,7 @@ export default props => {
                         />
                     </View>
 
-                    <Text>Tipo Sanguíneo</Text>
+                    <Text>Tipo Sanguíneo *</Text>
                     <RNPickerSelect
                         value={tipoSanguineo}
                         style={pickerStyle}

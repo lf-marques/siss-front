@@ -38,7 +38,7 @@ export default props => {
                             rg: rg,
                             dataNascimento: dataNascimento,
                             telefone: telefone,
-                            celular
+                            celular: celular
                         }
                     }
                     props.navigation.navigate("Sangue", userAndPfPageDate)
@@ -51,7 +51,7 @@ export default props => {
         let valid = true
         let message = 'Preencha o campo '
         
-        if(!nomeCompleto) {
+        if(!nomeCompleto || !nomeCompleto.trim()) {
             valid = false
             message += '"nome"'
         }else if(!cpf) {
@@ -93,7 +93,7 @@ export default props => {
                     <Input
                         style={styles.input}
                         autoCorrect={false}
-                        placeholder='Nome Completo'
+                        placeholder='Nome Completo *'
                         placeholderTextColor="#999999"
                         value={nomeCompleto}
                         onChangeText={nomeCompleto => setNomeCompleto(nomeCompleto)}
@@ -101,7 +101,7 @@ export default props => {
 
                     <View style={styles.containerMask}>
                         <TextInputMask
-                            placeholder="CPF"
+                            placeholder="CPF *"
                             placeholderTextColor="#999999"
                             type={'cpf'}
                             value={cpf}
@@ -114,7 +114,7 @@ export default props => {
 
                     <View style={styles.containerMask}>
                         <TextInputMask
-                            placeholder="RG"
+                            placeholder="RG *"
                             placeholderTextColor="#999999"
                             type={'custom'}
                             options={{mask: '99.999.999-9'}}
@@ -128,7 +128,7 @@ export default props => {
 
                     <View style={styles.containerMask}>
                         <TextInputMask
-                            placeholder="Data de Nascimento"
+                            placeholder="Data de Nascimento *"
                             placeholderTextColor="#999999"
                             type={'datetime'}
                             options={{ format: 'DD/MM/YYYY' }}

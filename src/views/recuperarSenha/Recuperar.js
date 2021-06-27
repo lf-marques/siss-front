@@ -66,14 +66,14 @@ export default props => {
             <Input
                 style={styles.input}
                 autoCorrect={false}
-                placeholder='Código de Verificação'
+                placeholder='Código de Verificação *'
                 onChangeText={codigo => setCodigo(codigo)}
             />
 
             <Input
                 style={styles.input}
                 autoCorrect={false}
-                placeholder='Senha'
+                placeholder='Senha *'
                 secureTextEntry={true}
                 onChangeText={senha => setSenha(senha)}
             />
@@ -81,7 +81,7 @@ export default props => {
             <Input
                 style={styles.input}
                 autoCorrect={false}
-                placeholder='Confirmar Senha'
+                placeholder='Confirmar Senha *'
                 secureTextEntry={true}
                 onChangeText={cSenha => setCSenha(cSenha)}
             />

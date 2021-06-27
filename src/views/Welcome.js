@@ -9,7 +9,7 @@ export default props => {
             try {
                 const value = await AsyncStorage.getItem('@sis-initialized');
                 if (value == "1") {
-                    // props.navigation.navigate("login")
+                    props.navigation.navigate("login")
                 }
             } catch (error) {
             }

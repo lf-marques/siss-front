@@ -81,7 +81,7 @@ export default props => {
                     <Input
                         style={styles.input}
                         autoCorrect={false}
-                        placeholder='Usuário, ex: SisSalvandoVidas123'
+                        placeholder='Usuário *, ex: SisSalvandoVidas123'
                         leftIcon={{ type: 'font-awesome', name: 'user', color: '#B8B8B8' }}
                         value={usuario}
                         onChangeText={usuario => setUsuario(usuario.trim())}
@@ -90,7 +90,7 @@ export default props => {
                     <Input
                         style={styles.input}
                         autoCorrect={false}
-                        placeholder='E-mail'
+                        placeholder='E-mail *'
                         leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#B8B8B8' }}
                         keyboardType='email-address'
                         value={email}
@@ -100,21 +100,21 @@ export default props => {
                     <Input
                         style={styles.input}
                         autoCorrect={false}
-                        placeholder='Senha'
+                        placeholder='Senha *'
                         leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
                         secureTextEntry={true}
                         value={senha}
-                        onChangeText={senha => setSenha(senha)}
+                        onChangeText={senha => setSenha(senha.trim())}
                     />
 
                     <Input
                         style={styles.input}
                         autoCorrect={false}
-                        placeholder='Confirmar Senha'
+                        placeholder='Confirmar Senha *'
                         leftIcon={{ type: 'font-awesome', name: 'lock', color: '#B8B8B8' }}
                         secureTextEntry={true}
                         value={senhaConfirmacao}
-                        onChangeText={senhaConfirmacao => setSenhaConfirmacao(senhaConfirmacao)}
+                        onChangeText={senhaConfirmacao => setSenhaConfirmacao(senhaConfirmacao.trim())}
                     />
                     
                     {!visibleLoader &&

@@ -24,11 +24,11 @@ const Veiculo = {
                 await Api.post('api/veiculo',
                     {
                         id: veiculo.id > 0  && veiculo.id != null ? veiculo.id : null,
-                        modelo: veiculo.modelo,
+                        modelo: veiculo.modelo ? veiculo.modelo.trim() : null,
                         marca: veiculo.marca,
                         cor: veiculo.cor,
-                        renavam: veiculo.renavam,
-                        placa: veiculo.placa ? veiculo.placa.toUpperCase() : null,
+                        renavam: veiculo.renavam ? veiculo.renavam.trim() : null,
+                        placa: veiculo.placa ? veiculo.placa.trim().toUpperCase() : null,
                         pessoaFisicaId: usrData.data.id
                     },
                     {headers: {"Authorization" : tokenData.token}}

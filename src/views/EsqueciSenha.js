@@ -36,7 +36,7 @@ export default props => {
             <Input
                 style={styles.input}
                 autoCorrect={false}
-                placeholder='E-mail'
+                placeholder='E-mail *'
                 onChangeText={email => setEmail(email)}
             />
 

@@ -26,7 +26,7 @@ export default props => {
                 pf: userAndPfPageDate.pf,
                 cdClinica: {
                     tipoSanguineo: checked,
-                    convenioMedico: checked2 == 'sim' ? convenioMedico : 'NP',
+                    convenioMedico: checked2 == 'sim' ? convenioMedico.trim() : 'NP',
                 }
             }
             CadastroUsuario.cadastrar(allPageDate).then((response => {
@@ -50,7 +50,11 @@ export default props => {
         if(!checked) {
             valid = false
             message += '"Tipo Sanguíneo"'
-        }else if((checked2 == 'sim' && !convenioMedico) || (!checked || !checked2)) {
+        }else if(
+            checked2 == 'sim' && 
+            (!convenioMedico || !convenioMedico.trim()) || 
+            (!checked || !checked2)
+        ) {
             valid = false
             message += '"Convênio Médico"'
         }

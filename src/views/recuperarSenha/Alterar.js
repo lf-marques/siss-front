@@ -35,13 +35,13 @@ export default props => {
         let valid = true
         let message = 'Preencha o campo '
         
-        if(!senhaAtual) {
+        if(!senhaAtual || !senhaAtual.trim()) {
             valid = false
             message += '"senha atual"'
-        }else if(!novaSenha) {
+        }else if(!novaSenha || !novaSenha.trim()) {
             valid = false
             message += '"nova senha"'
-        }else if(!novaSenhaConfirm) {
+        }else if(!novaSenhaConfirm || !novaSenhaConfirm.trim()) {
             valid = false
             message += '"confirmação nova senha"'
         }else if(novaSenha != novaSenhaConfirm) {
@@ -67,7 +67,7 @@ export default props => {
             </View>
 
             <View style={styles.form}>
-                <Text>Senha atual</Text>
+                <Text>Senha atual *</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#999999"
@@ -78,7 +78,7 @@ export default props => {
                     onChangeText={senhaAtual => setSenhaAtual(senhaAtual)}
                 />
 
-                <Text>Nova senha</Text>
+                <Text>Nova senha *</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#999999"
@@ -89,7 +89,7 @@ export default props => {
                     onChangeText={novaSenha => setNovaSenha(novaSenha)}
                 />
 
-                <Text>Confirme a nova senha</Text>
+                <Text>Confirme a nova senha *</Text>
                 <TextInput
                     style={styles.input}
                     placeholderTextColor="#999999"

@@ -30,7 +30,7 @@ export default ({ route, navigation }) => {
         <ScrollView>
             <KeyboardAvoidingView style={styles.background}>
                 <View style={styles.form}>
-                    <Text>Modelo</Text>
+                    <Text>Modelo *</Text>
                     <TextInput
                         style={styles.input}
                         placeholderTextColor="#999999"
@@ -38,7 +38,7 @@ export default ({ route, navigation }) => {
                         placeholder='Informe o modelo do veículo'
                         value={veiculo.modelo}
                     />
-                    <Text>Marca</Text>
+                    <Text>Marca *</Text>
                     <RNPickerSelect
                         value={veiculo.marca}
                         style={pickerStyle}
@@ -69,7 +69,7 @@ export default ({ route, navigation }) => {
                             { label: 'Volvo ', value: 'volvo' }
                         ]}
                     />
-                    <Text>Cor</Text>
+                    <Text>Cor *</Text>
                     <RNPickerSelect
                         value={veiculo.cor}
                         style={pickerStyle}
@@ -95,7 +95,7 @@ export default ({ route, navigation }) => {
                         placeholder='Informe o renavam'
                         value={veiculo.renavam}
                     />
-                    <Text>Placa</Text>
+                    <Text>Placa *</Text>
                     <TextInput
                         autoCapitalize='characters' 
                         style={styles.input}
