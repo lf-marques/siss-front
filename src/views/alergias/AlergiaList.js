@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, FlatList ,Alert} from 'react-native'
+import { View, FlatList ,Alert} from 'react-native'
 import { ListItem, Button, Icon } from 'react-native-elements'
 import PFAbstract from '../../services/pessoaFisica/Abstract'
 import Alergia from '../../services/condicaoClinica/alergias/Index'

@@ -106,14 +106,16 @@ export default ({ route, navigation }) => {
                     />
 
                     {!visibleLoader &&
-                        <TouchableOpacity
-                            style={styles.btnSubmit}
-                            onPress={() => {salvar()}}
-                        >
-                            <Text style={styles.submitText}>
-                                {veiculo.id ? 'Editar' : 'Cadastrar'}
-                            </Text>
-                        </TouchableOpacity>
+                        <View style={{alignItems: 'center'}}>
+                            <TouchableOpacity
+                                style={styles.btnSubmit}
+                                onPress={() => {salvar()}}
+                            >
+                                <Text style={styles.submitText}>
+                                    {veiculo.id ? 'Editar' : 'Cadastrar'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     }
                     { visibleLoader &&
                         <ActivityIndicator size="large" color="#e0000a" />

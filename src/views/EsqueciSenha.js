@@ -1,8 +1,7 @@
-import { NavigationContainer } from '@react-navigation/native'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Alert } from 'react-native'
-import { View, Animated, Keyboard, KeyboardAvoidingView, Image, TextInput, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
-import { Button, Input, Icon } from 'react-native-elements'
+import { View, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { Input } from 'react-native-elements'
 import CadastroUsuario from '../services/cadastroUsuario/Index'
 
 export default props => {   

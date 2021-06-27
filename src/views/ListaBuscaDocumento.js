@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, FlatList, ScrollView } from 'react-native'
+import { FlatList } from 'react-native'
 import { View, Text, KeyboardAvoidingView, TouchableOpacity, StyleSheet } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import PFAbstract from '../services/pessoaFisica/Abstract'
@@ -57,6 +57,16 @@ export default props => {
                     <ListItem.Subtitle>Atualizado em: {condicaoClinica.dataAtualizacao}</ListItem.Subtitle>
                 </ListItem.Content>
             </ListItem>
+        )
+    }
+
+    function emptyData() {
+        return (
+            <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10}}>
+                <Text style={{ fontSize: 15 }}>
+                    Nenhuma informação cadastrada.
+                </Text>
+            </View>
         )
     }
 
@@ -131,6 +141,7 @@ export default props => {
                                     data={info && info.veiculos ? info.veiculos : null}
                                     renderItem={getVeiculoItem}
                                     ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                    ListEmptyComponent={emptyData()}
                                 />  
                             </CollapseBody>
                         </Collapse>
@@ -148,6 +159,7 @@ export default props => {
                                     data={info && info.contatos ? info.contatos : null}
                                     renderItem={getContatoItem}
                                     ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                    ListEmptyComponent={emptyData()}
                                 />  
                             </CollapseBody>
                         </Collapse>
@@ -165,6 +177,7 @@ export default props => {
                                     data={info && info.condicaoClinica ? info.condicaoClinica.alergias : null}
                                     renderItem={getCondicaoClinicaItem}
                                     ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                    ListEmptyComponent={emptyData()}
                                 />
                             </CollapseBody>
                         </Collapse>
@@ -182,6 +195,7 @@ export default props => {
                                     data={info && info.condicaoClinica ? info.condicaoClinica.doencas : null}
                                     renderItem={getCondicaoClinicaItem}
                                     ItemSeparatorComponent={() => <View style={styles.separator} />}
+                                    ListEmptyComponent={emptyData()}
                                 />
                             </CollapseBody>
                         </Collapse>

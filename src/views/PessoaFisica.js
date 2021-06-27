@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { View, Text, FlatList, Alert} from 'react-native'
-import { Avatar } from 'react-native-elements/dist/avatar/Avatar'
 import { ListItem, Button, Icon } from 'react-native-elements'
 import PFAbstract from '../../services/pessoaFisica/Abstract'
 import Contato from '../../services/contato/Index'

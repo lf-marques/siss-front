@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
 import { View, Animated, ScrollView, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
@@ -78,7 +77,6 @@ export default props => {
 
     return (
         <ScrollView>
-
             <KeyboardAvoidingView style={styles.background}>
                 <View style={{ backgroundColor: '#AD0E3D', width: '100%', height: 40, borderBottomRightRadius: 20, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 25, color: '#FFF', fontWeight: 'bold', }}>

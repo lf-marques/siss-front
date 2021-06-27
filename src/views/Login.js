@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Alert } from 'react-native'
-import { View, TextInput, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, Animated, Keyboard, KeyboardAvoidingView, TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native'
 import { Input } from 'react-native-elements'
 import OauthToken from '../services/oauthToken/Token'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default props => {
     const [offset] = useState(new Animated.ValueXY({ x: 0, y: 95 }))
@@ -52,17 +53,22 @@ export default props => {
     }
 
     useEffect(() => {
-        OauthToken.getTokenStorage().then((response => {
+        const _retrieveData = async () => {
             try {
-                if(
-                    response &&
-                    response['token'] && 
-                    response['executante'] == "1" || response['pfExists'] == "1"
-                ) {
-                    redirectByType(response.executante)
+                const tokenStorageData = await AsyncStorage.getItem("@TokenData");
+                let tokenStorageDataJson = JSON.parse(tokenStorageData);
+
+                if(tokenStorageDataJson != null) {
+                    if(
+                        tokenStorageDataJson['token'] && 
+                        tokenStorageDataJson['executante'] == "1" || tokenStorageDataJson['pfExists'] == "1"
+                    ) {
+                        redirectByType(tokenStorageDataJson.executante)
+                    }
                 }
-            }catch(error){}
-        }))
+            } catch (error) {}
+        }
+        _retrieveData()
 
         keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow)
         keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', keyboardDidHide)
@@ -80,7 +86,7 @@ export default props => {
                 duration: 300,
             })
         ]).start();
-    })
+    },[])
 
     function keyboardDidShow() {
         Animated.parallel([

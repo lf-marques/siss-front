@@ -204,7 +204,7 @@ export default props => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: '#FFF' }}>
 
             <KeyboardAvoidingView style={styles.background}>
                 <View style={{ backgroundColor: '#AD0E3D', alignItems: 'center', flexDirection: 'row', borderBottomRightRadius: 20 }}>
@@ -230,7 +230,7 @@ export default props => {
                     <Text style={{ fontSize: 30, color: '#AD0E3D', fontWeight: 'bold' }}>Bem vindo ao S.I.S</Text>
                 </View>
 
-                <View style={{flexDirection: 'row', backgroundColor: '#890b30'}}>
+                <View style={{flexDirection: 'row', backgroundColor: '#890b30', marginBottom: 10}}>
                     <View style={{ flexDirection: "row", flex: 1, justifyContent: 'flex-end'}}>    
                         <TouchableOpacity
                             onPress={() => { init(true) }}
@@ -249,7 +249,7 @@ export default props => {
                     </View>
                 </View>
                 
-                <View style={{ backgroundColor: '#FFF' }}>
+                <View>
                     {init()}
                     {CadVeiculo()}
                     {CadContato()}
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     containerLogo: {
-        marginBottom: 15,
+        marginBottom: 20,
         marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center'

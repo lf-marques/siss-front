@@ -51,6 +51,7 @@ const removeTokenStorage = async() => {
 const saveTokenInStorage = async (tokenData) => {
     try {
         await AsyncStorage.setItem("@TokenData", JSON.stringify(tokenData));
+        await AsyncStorage.setItem("@sis-initialized", "1");
     }catch(e) {
         console.log(e.message)
     }

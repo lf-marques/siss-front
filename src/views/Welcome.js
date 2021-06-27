@@ -1,58 +1,68 @@
-import React from 'react'
-import { SafeAreaView, Text, View, StyleSheet, Button, TouchableOpacity, Image, Dimensions } from 'react-native'
+import React, { useEffect } from 'react'
+import { SafeAreaView, Text, View, StyleSheet, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default props => {
 
+    useEffect(() => {
+        const _retrieveData = async () => {
+            try {
+                const value = await AsyncStorage.getItem('@sis-initialized');
+                if (value == "1") {
+                    // props.navigation.navigate("login")
+                }
+            } catch (error) {
+            }
+        }
+        _retrieveData()
+      },[])
+ 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.explicacao}>
-                <View style={{ flex: 4 }}>
-                    <Text style={styles.text1}>SEJA BEM-VINDO</Text>
-                    <Text style={styles.text2}>
-                        Plataforma oficial de socorro
-                        facilitado, em menos de 5
-                        minutos você nos ajuda a
-                        garantir um atendimento mais
-                        rápido e eficaz, porque cada
-                        segundo é valioso para salvar
-                        uma vida.
-                </Text>
-                </View>
-                <View style={{ flex: 1, alignItems: 'center' }}>
+        <ScrollView>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.explicacao}>
+                    <View style={{ flex: 4 }}>
+                        <Text style={styles.text1}>SEJA BEM-VINDO</Text>
+                        <Text style={styles.text2}>
+                            Plataforma oficial de socorro
+                            facilitado, em menos de 5
+                            minutos você nos ajuda a
+                            garantir um atendimento mais
+                            rápido e eficaz, porque cada
+                            segundo é valioso para salvar
+                            uma vida.
+                    </Text>
+                    </View>
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: 20, marginBottom:20 }}>
+                        <TouchableOpacity style={styles.btnSubmit}
+                            onPress={() => {
+                                props.navigation.navigate("login")
+                            }}>
+                            <Text style={styles.submitText}>COMECE</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                    {/* <Button title='nome'
-                        onPress={() => {
-                            props.navigation.navigate("login")
-                        }} /> */}
-                    <TouchableOpacity style={styles.btnSubmit}
-                        onPress={() => {
-                            props.navigation.navigate("login")
-                        }}>
-                        <Text style={styles.submitText}>COMECE</Text>
-                    </TouchableOpacity>
                 </View>
-
-            </View>
-            <SafeAreaView style={styles.imagens}>
-                <Image
-                    style={{
-                        height: Dimensions.get('window').width / 5.2,
-                        width: Dimensions.get('window').width / 2,
-                    }}
-                    source={require('../assets/LogoSis.png')}
-                />
-                <Image
-                    style={{
-                        height: Dimensions.get('window').width / 2.5,
-                        width: Dimensions.get('window').width / 2.5,
-                        marginBottom: 50
-                    }}
-                    source={require('../assets/medicos.png')}
-                />
+                <SafeAreaView style={styles.imagens}>
+                    <Image
+                        style={{
+                            height: Dimensions.get('window').width / 5.2,
+                            width: Dimensions.get('window').width / 2,
+                        }}
+                        source={require('../assets/LogoSis.png')}
+                    />
+                    <Image
+                        style={{
+                            height: Dimensions.get('window').width / 2.5,
+                            width: Dimensions.get('window').width / 2.5,
+                            marginBottom: 50
+                        }}
+                        source={require('../assets/medicos.png')}
+                    />
+                </SafeAreaView>
             </SafeAreaView>
-        </SafeAreaView>
+        </ScrollView>
     )
-
 }
 
 const styles = StyleSheet.create({

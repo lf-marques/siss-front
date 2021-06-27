@@ -76,7 +76,8 @@ export default props => {
                 <Button
                     onPress={() => { sair() }}
                     type="exit"
-                    title="Sair"
+                    title="Clique aqui para encerrar a sessão"
+                    style={{marginBottom:10, marginTop:10}}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <RadioButton

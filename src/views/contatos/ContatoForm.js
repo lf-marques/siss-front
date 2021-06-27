@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { TextInput, View, Text, StyleSheet, KeyboardAvoidingView, TouchableOpacity, Alert, ScrollView, ActivityIndicator } from 'react-native'
-import { Button, Input, Icon } from 'react-native-elements'
 import { TextInputMask } from 'react-native-masked-text'
 import RNPickerSelect from 'react-native-picker-select';
 import Contato from '../../services/contato/Index'
@@ -95,14 +94,16 @@ export default ({ route, navigation }) => {
                         />
                     </View>
                     {!visibleLoader &&
-                        <TouchableOpacity
-                            style={styles.btnSubmit}
-                            onPress={() => {salvar()}}
-                        >
-                            <Text style={styles.submitText}>
-                                {contato.id ? 'Editar' : 'Cadastrar'}
-                            </Text>
-                        </TouchableOpacity>
+                        <View style={{alignItems: 'center'}}>
+                            <TouchableOpacity
+                                style={styles.btnSubmit}
+                                onPress={() => {salvar()}}
+                            >
+                                <Text style={styles.submitText}>
+                                    {contato.id ? 'Editar' : 'Cadastrar'}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     }
                     { visibleLoader &&
                         <ActivityIndicator size="large" color="#e0000a" />
