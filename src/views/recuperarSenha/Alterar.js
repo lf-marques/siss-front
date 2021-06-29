@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
         marginBottom: 10,
+        color: 'black'
     },
     buttonsContainer: {
         width: '100%',
