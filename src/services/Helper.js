@@ -41,12 +41,20 @@ const Helper = {
         }
     },
     formatDateAndRemoveTime(date) {
-        return moment(date).format('DD/MM/YYYY')
+        try {
+            return moment(date).format('DD/MM/YYYY')
+        }catch(err){
+            console.log(err)
+        }
     },
     parseDateToSave(date) {
-        let darr = date.split('/');
-        let ISOFormat = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
-        return ISOFormat.toISOString().split('T')[0]
+        try {
+            let darr = date.split('/');
+            let ISOFormat = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
+            return ISOFormat.toISOString().split('T')[0]
+        }catch(err){
+            console.log(err)
+        }
     },
     isEmailValid(email) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)

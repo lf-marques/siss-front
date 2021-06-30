@@ -50,11 +50,18 @@ export default props => {
         )
     }
     function getCondicaoClinicaItem({item:condicaoClinica}){
+        let dataAtualizacao 
+        if(condicaoClinica.dataAtualizacao) {
+            dataAtualizacao = condicaoClinica.dataAtualizacao
+        }else if(condicaoClinica.dataAlteracao) {
+            dataAtualizacao = condicaoClinica.dataAlteracao
+        }
+        dataAtualizacao = Helper.formatDateAndRemoveTime(condicaoClinica.dataAlteracao)
         return (
             <ListItem>
                 <ListItem.Content>
-                    <ListItem.Title>{condicaoClinica.tipo}</ListItem.Title>
-                    <ListItem.Subtitle>Atualizado em: {condicaoClinica.dataAtualizacao}</ListItem.Subtitle>
+                    <ListItem.Title style={{fontWeight: 'bold'}}>{condicaoClinica.tipo}</ListItem.Title>
+                    <ListItem.Subtitle style={{fontWeight: 'bold'}}>Atualizado em: {dataAtualizacao}</ListItem.Subtitle>
                 </ListItem.Content>
             </ListItem>
         )
